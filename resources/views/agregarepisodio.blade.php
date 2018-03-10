@@ -23,81 +23,87 @@ Upload @endsection
 @include("layouts.navbarWhite")
 
 <div id="contenedor">
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <h3 style="font-weight: bold">Corrije los siguientes errores:</h3>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li style="margin: 15px 0 15px 45px;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="upload-form" id="container">
         <h1 class="replace-text">Upload Form</h1>
         <div class="serie">
             <label>Serie</label>
-                <select name="series" id="series">
-                    <option value="">Select</option>
+                <select name="series" id="series" class="custom-select custom-select-lg mb-3">
+                    <option selected>Select</option>
                     @foreach($series as $serie)
                         <option value="{{ $serie->id }}">{{ $serie->show_name }}</option>
                     @endforeach
                 </select><br>
 
             <label>Temporada</label>
-            <select name="temporadas" id="temporadas">
-                <option value="">Select</option>
+            <select name="temporadas" id="temporadas" class="custom-select custom-select-m">
+                <option selected>Select</option>
             </select><br>
 
             <label>Episodio</label>
-            <select name="episodios" id="episodios">
-                <option value="">Select</option>
+            <select name="episodios" id="episodios" class="custom-select custom-select-m">
+                <option selected>Select</option>
             </select>
         </div>
 
-        <div class="50"style="width: 50%; display: inline-block; float: left">
-        <label>Fecha del primer episodio</label>
-        <input type="number" class="field__input w3-input w3-animate-input form-control" name="p_ep" id="p_ep" placeholder="2010" min="1900" max="2050"><br>
-        </div>
-
         <form action="{{ url('/create/episodio') }}" method="POST">
-            {{ csrf_field()}}
-        <div class="50" style="width: 50%; display: inline-block; float: left">
-        <label>Titulo original</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="t_original" id="t_original" readonly><br>
-        </div>
+                {{ csrf_field()}}
 
-        <div class="50"style="width: 50%; display: inline-block; float: left">
-        <label>Titulo</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="titulo_t" id="titulo_t"><br>
-        </div>
+                <div class="50"style="width: 50%; display: inline-block; float: left">
+                    <label>Temporada</label>
+                    <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="temporada_n" id="temporada_n"><br>
+                </div>
 
-        <label>Resumen</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="resumen" id="resumen" readonly><br>
+                <div class="50"style="width: 50%; display: inline-block; float: left">
+                    <label>Episodio numero</label>
+                    <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="episodio_n" id="episodio_n"><br>
+                </div>
 
-        <label>Primera transmision</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="p_transmision" id="p_transmision" readonly><br>
+                <div class="50" style="width: 50%; display: none; float: left">
+                    <label>Titulo original</label>
+                    <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="t_original" id="t_original" readonly><br>
+                </div>
 
-        <label>Ultima transmision</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="u_transmision" id="u_transmision" readonly><br>
+                <br>
+                <div class="50"style="width: 50%; display: inline-block; float: left">
+                    <label>Titulo</label>
+                    <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="titulo_t" id="titulo_t"><br>
+                </div>
 
-        <label>Generos (Separados por una coma)</label>
-        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="generos" id="generos"><br>
+                <label>Resumen</label>
+                <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="resumen" id="resumen"><br>
 
-        <div class="50"style="width: 50%; display: inline-block; float: left">
-        <label>Episodios totales</label>
-        <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="total_e" id="total_e" readonly><br>
-        </div>
+                <label>Fecha de transmision</label>
+                <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="transmitido" id="transmitido"><br>
 
-        <div class="50" style="width: 50%; display: inline-block; float: left">
-        <label>Cantidad temporadas</label>
-        <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="cant_temp" id="cant_temp" readonly><br>
-        </div>
+                <label>Keywords (Separados por una coma)</label>
+                <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="keywords" id="keywords"><br>
 
-        <div class="50" style="width: 50%; display: inline-block; float: left">
-            <label>Creadores</label>
-            <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="creador" id="creador" readonly><br>
-        </div>
+                <div class="50" style="width: 50%; display: inline-block; float: left">
+                    <label>Poster path</label>
+                    <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="post_path" id="post_path" readonly><br>
+                </div>
 
-        <div class="50" style="width: 50%; display: inline-block; float: left">
-            <label>Poster path</label>
-            <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="post_path" id="post_path" readonly><br>
-        </div>
+                <div class="50" style="width: 50%; display: inline-block; float: left">
+                    <label>Url video</label>
+                    <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="video_url" id="video_url"><br>
+                </div>
 
-        <div class="50" style="width: 50%; display: inline-block; float: left">
-            <label>Imagen fondo</label>
-            <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="fondo_path" id="fondo_path" readonly><br>
-        </div>
+                <div class="50" style="width: 50%; display: inline-block; float: left">
+                    <label>Id del episodio</label>
+                    <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="id" id="id" readonly><br>
+                </div>
+
+                <input type="hidden" class="field__input w3-input w3-animate-input form-control disabled" name="serie_id" id="serie_id" readonly><br>
 
             <div id="btns">
                 <button type="submit" id="pickfiles" class="button w3-teal" style="display: none"><span class="icon-cloud-upload"></span>Guardar serie</button>
@@ -125,8 +131,10 @@ Upload @endsection
 
                     $('#temporadas')
                         .empty()
-                        .append('<option value="">Select..</option>')
+                        .append('<option selected>Select..</option>')
                     ;
+
+                    $('#serie_id').val($(this).val());
 
                     $.ajax({
                         data: {
@@ -161,7 +169,7 @@ Upload @endsection
 
                     $('#episodios')
                         .empty()
-                        .append('<option value="">Select..</option>')
+                        .append('<option selected>Select..</option>')
                     ;
 
                     $.ajax({
@@ -193,6 +201,8 @@ Upload @endsection
                 $('#episodios').on('change', function() {
                     var t = $('#temporadas').val();
 
+                    $('#episodio_n').val($(this).val());
+                    $('#temporada_n').val(t);
                     $.ajax({
                         data: {
                             "serie" : $('#series').val(),
@@ -209,26 +219,19 @@ Upload @endsection
                             var g = [];
                             var c = [];
 
-                            $('#t_original').val(ob.original_name);
+                            // $('#t_original').val(ob.original_name);
                             $('#resumen').val(ob.overview);
 
-                            $('#p_transmision').val(ob.first_air_date);
-                            $('#u_transmision').val(ob.last_air_date);
+                            $('#transmitido').val(ob.air_date);
 
-                            $('#generos').val(g.toString());
-
-                            $('#total_e').val(ob.number_of_episodes);
-                            $('#cant_temp').val(ob.number_of_seasons);
+                            $('#keywords').val(ob.keywords);
 
                             $('#titulo_t').val(ob.name);
+                            $('#post_path').val('https://image.tmdb.org/t/p/w500' + ob.still_path);
 
-                            $('#creador').val(c.toString());
+                            $('#post_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.still_path);
 
-                            $('#post_path').val('https://image.tmdb.org/t/p/w500' + ob.poster_path);
-                            $('#fondo_path').val('https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
-
-                            $('#post_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.poster_path);
-                            $('#fondo_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
+                            $('#id').val(ob.id);
 
                              console.log(ob);
                             $('#pickfiles').attr('style', 'display: block');

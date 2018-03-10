@@ -1,7 +1,3 @@
-<?php
-session(['ssid' => $videoid]);
-?>
-
 @extends("layouts/plantillaPrincipal")
 
 @section("Title")
@@ -9,9 +5,6 @@ Home @endsection
 
 @section("links")
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- videojs -->
-    <link href="{{ asset("css/video-js.css") }}" rel="stylesheet">
-    <script type="text/javascript" src="{{ asset("js/subtitlesFunctions.js") }}"></script>
     <link href="{{ asset("css/main.css") }}" rel="stylesheet">
     <link href="{{ asset("css/white/watchWhite.css") }}" rel="stylesheet">
     <link href="{{ asset("css/fonts/style.css") }}" rel="stylesheet">
@@ -19,20 +12,6 @@ Home @endsection
 
 
 @section("body")
-<?php
-    $ip = request()->ip();
-    $tken = new \App\Library\GernerateUniqueID();
-
-    /** Eliminamos antiguios dependiendo de la ip y si hay uno que no vencio se reutiliza */
-    $alive = $tken->verifyOldsTokens($ip);
-
-    if ($alive !== null){
-        $tken = $alive;
-    }else{
-        /** Creamos el token y lo guarda en la bd*/
-        $tken = $tken->create_first_token($ip);
-    }
-?>
 <div id="dt_contenedor">
 @include("layouts.navbarWhite")
 <div id="contenedor">
@@ -40,34 +19,17 @@ Home @endsection
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
-        @if(empty($image_name))
-        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="720" height="480" poster="https://pmcvariety.files.wordpress.com/2017/05/arrested-development.png" data-setup="{}">
-        @else
-        <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" width="720" height="480" poster="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/max_res'.$image_name) }}" data-setup="{}">
-        @endif
-            <source src="{{ url($video_src) . "?tn=" . $tken . "&ip=" . $ip }}" type={{ $mime }}>
-            {{-- @if($result->subtitles == "true") --}}
-            <!-- <track label="Español" kind="subtitle" srclang="es" src="../aaa.vtt" default> -->
-            {{-- @endif --}}
-
-            <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a web browser that
-                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-        </video>
+            <iframe src="{{ $epidodio->url }}" width="720px" height="480px"></iframe>
         </div>
 
         <div class="pag_episodes">
-
             @if($anterior !== null)
             <div class="ep_item">
-                <a href="{{ route('video.watch', ['videoid' => $anterior->unique_id])}}" title="{{ $anterior->titulo }}">
+                <a class="nt">
                     <i class="icon-arrow-left2"></i> <span>video anterior</span>
                 </a>
             </div>
-
             @else
-
             <div class="ep_item">
                 <a class="nt">
                     <i class="icon-arrow-left2"></i> <span>video anterior</span>
@@ -76,7 +38,7 @@ Home @endsection
             @endif
 
             <div class="ep_item">
-                <a href="{{ route('video.list.categoria', ['categoria' => $categoria .'#'. $carpeta]) }}">
+                <a class="nt">
                     <i class="icon-menu2"></i>
                     <span>lista de episodios</span>
                 </a>

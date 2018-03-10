@@ -94,9 +94,16 @@ Route::post('/search/serie', 'PageController@searchSerie')->name('search.serie')
 Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.episodio');
 
 /** Others */
-Route::get('/test', function (){
-    $json = file_get_contents('https://api.themoviedb.org/3/tv/1418?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es');
+Route::get('/test', function () {
+    $myk = new \App\Library\MyHelper();
+    $key = $myk->generateKeywords('Shameless', '2', '5');
+
+    $keywords = implode(",", $key);
+
+    $json = file_get_contents('https://api.themoviedb.org/3/tv/1418/season/11/episode/2?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es');
     $obj = json_decode($json);
+
+    $obj->keywords = $keywords;
 
     dd($obj);
 });

@@ -18,14 +18,17 @@ class CreateEpisodiosTable extends Migration
             $table->string('titulo','120');
             $table->integer('temporada');
             $table->integer('episodio');
+            $table->longText('resumen', '900')->nullable();
             $table->string('url', '100')->nullable();
             $table->string('video_url', '100');
             $table->string('keywords', '500');
             $table->string('fecha_estreno', '50');
             $table->string('image_path', '200')->nullable();
+            $table->integer('id_db', '11')->nullable();
 
             $table->unsignedInteger('serie_id');
             $table->foreign('serie_id')->references('id')->on('series');
+
 
             $table->timestamps();
         });

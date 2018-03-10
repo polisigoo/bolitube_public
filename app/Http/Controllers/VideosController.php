@@ -60,7 +60,6 @@ class VideosController extends Controller
     public function watch(Video $videoid)
     {
         //session(['key' => '990']);
-
         $video = $videoid;
 
         $file_info= DB::table('videos')

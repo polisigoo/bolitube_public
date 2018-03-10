@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Library\GernerateUniqueID;
 
+use App\Models\Episodio;
 use App\Models\Serie;
 use App\Video;
 use Illuminate\Http\Request;
@@ -210,8 +211,6 @@ class PageController extends Controller
     }
 
     public function searchSerie(Request $request){
-
-
         $name = str_replace(" ", '%20',$request->input('title'));
 
         if ($p_ep = !empty($request->input('fecha'))){
@@ -266,11 +265,17 @@ class PageController extends Controller
     }
 
     public function searchEpisodio(Request $request){
-        if (!empty(e($request->serie)) && empty(e($request->temporada)) && empty($request->episodio)) {
-            $temporadas = Serie::select('temporadas')->where('id', e($request->serie))->first();
+        $serie = str_replace(" ", '%20',$request->serie);
+
+        $temporada = str_replace(" ", '%20', str_replace("Temporada ", "",$request->temporada));
+        $episodio = str_replace(" ", '%20', preg_replace("/Episodio [0-9]x+/","", $request->episodio));
+
+
+        if (!empty($serie) && empty($temporada) && empty($episodio)){
+            $temporadas = Serie::select('temporadas')->where('id', $serie)->first();
             return $temporadas->temporadas;
-        }elseif (!empty(e($request->temporada)) && !empty(e($request->serie)) && empty($request->episodio)){
-            $id = Serie::select('id_db')->where('id', e($request->serie))->first();
+        }elseif (!empty($temporada) && !empty($serie) && empty($episodio)){
+            $id = Serie::select('id_db')->where('id', $serie)->first();
 
             $json = file_get_contents("https://api.themoviedb.org/3/tv/{$id->id_db}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es");
 
@@ -284,28 +289,60 @@ class PageController extends Controller
 
             return $json->seasons[$request->temporada]->episode_count;
 
-            //$json = file_get_contents("https://api.themoviedb.org/3/tv/1418/season/{$request->temporada}/episode/{}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es");
-        }elseif (!empty($request->episodio) && !empty(e($request->temporada)) && !empty(e($request->serie))){
+        }elseif (!empty($episodio) && !empty($temporada) && !empty($serie)){
+            $id = Serie::select('id_db', 'show_name')->where('id', $serie)->first();
+            $json = file_get_contents("https://api.themoviedb.org/3/tv/{$id->id_db}/season/{$temporada}/episode/{$episodio}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es");
 
-            return json_encode('{"Episodio" : '.$request->episodio .'
-                                        "temporada" : '.$request->temporada.'
-                                        "serie" : '.$request->serie.'}');
-        }
-
-        /*
-        if ($p_ep = !empty($request->input('fecha'))){
-            $json = file_get_contents("https://api.themoviedb.org/3/search/tv?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1&first_air_date_year={$p_ep}");
             $obj = json_decode($json);
-            $id = $obj->results[0]->id;
-        }else{
-            $json = file_get_contents("");
-            $obj = json_decode($json);
-            $id = $obj->results[0]->id;
-            //$json = $obj->results[0];
-            //$json = json_encode($json);
+
+            $myk = new \App\Library\MyHelper();
+            $key = $myk->generateKeywords($id->show_name, $temporada, $episodio);
+            $keywords = implode(",", $key);
+            $obj->keywords = $keywords;
+
+            $json = json_encode($obj);
+
+            return $json;
         }
+    }
 
+    public function saveEpisodio(Request $request){
+        request()->validate([
+            'serie_id' => 'required',
+            'titulo_t' => 'required',
+            'resumen' => '',
+            'transmitido' => 'required',
+            'temporada_n' => 'required',
+            'episodio_n' => 'required',
+            'keywords' => 'required',
+            'post_path' => 'required',
+            'video_url' => 'required',
+            'id' => ''
+        ],[
+            'video_url.required' => 'Es necesario especificar un video_url',
+            'titulo_t.required' => 'Es necesario completar el campo titulo_t',
+            'post_path.required' => 'Es necesario especificar un post_path',
+            'serie_id.required' => 'Es necesario completar el campo serie_id',
+            'transmitido.required' => 'Es necesario completar el campo transmitido',
+            'temporada_n.required' => 'Es necesario especificar un temporada_n',
+            'episodio_n.required' => 'Es necesario completar el campo episodio_n'
+        ]);
 
-        */
+        $ep = new Episodio();
+        $ep->titulo = $request->titulo_t;
+        $ep->temporada = $request->temporada_n;
+        $ep->episodio = $request->episodio_n;
+        $ep->resumen = $request->resumen;
+        $ep->video_url = $request->video_url;
+        $ep->keywords = $request->keywords;
+        $ep->fecha_estreno = $request->transmitido;
+        $ep->image_path = $request->post_path;
+        $ep->serie_id = $request->serie_id;
+        $ep->id_db = $request->id;
+
+        if($ep->save())
+            return "<h1 style='color: #31e73d; text-align: center'>Episodio añadida correctamente</h1><a href='".url('create/serie')."'>Volver</a>";
+        else
+            return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar el episodio</h1>";
     }
 }
