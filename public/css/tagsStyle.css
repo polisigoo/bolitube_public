@@ -1,0 +1,81 @@
+#single{
+    
+background-color: #fafafa;
+}
+
+.video a{
+    color: black;
+}
+
+.video{
+    margin-top: 5px;
+    width: 41.7%;
+    height: 70px;
+    padding: 5px;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    overflow:  hidden;
+    text-overflow:  ellipsis;
+}
+
+.video .imagen{
+    width: 90px;
+    float: left;
+    margin-top: 3px;
+}
+
+.video .title{
+    float: left;
+    /* padding: 10px; */
+    width: calc(54% - 50px);
+    padding-left: 90px;
+    margin-top: -21px;
+    position: absolute;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.video li{
+    border-color: rgba(255, 255, 255, 0.08);
+    width: 100%;
+    float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* border-bottom: solid 1px; */
+}
+
+ul.video li .imagen img{
+    margin-top: -10px;
+    max-width: 80%;
+}
+
+.videos{
+    padding: 5px;
+    border: 1px solid #b9b9b9;
+}
+
+ul.video li .date{
+    color: rgba(154, 154, 154, 0.5);
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 5px;
+    font-weight: 300;
+}
+
+.pagination{
+    margin-left: 44%;
+}
+
+@media screen and (max-width: 1000px) {
+    .video {
+        width: 98%;
+        display: block;
+        margin: 5px auto;
+    }
+
+    .video .title{
+        width: calc(110% - 50px);
+    }
+}

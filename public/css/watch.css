@@ -1,0 +1,472 @@
+body{
+    background: #e6e6e6;
+    color: #fff;
+    /* line-height: 1; */
+    font-family: 'Source Sans Pro',sans-serif;
+    font-size: 1em;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+#dt_contenedor {
+    width: 100%;
+    float: left;
+}
+
+#contenedor {
+    max-width: 1100px;
+    margin: 2px auto 0;
+}
+
+
+#single {
+    width: 100%;
+    float: left;
+    margin: 9px 0 50px;
+    padding: 0;
+    position: relative;
+    background: #ffffff;
+}
+
+#single .content{
+    background: #171d22;
+    border-right: solid 2px #171d22;
+    width: calc(100% - 340px);
+    float: left;
+    padding: 0;
+    position: relative;
+}
+
+.video-js {
+    margin: auto;
+    background-color: #00000000;
+    width: 100% !important;
+}
+
+.vjs-poster{
+    background-color: #00000000;
+}
+
+.playerVideo{
+    background: #071117;
+}
+
+#single .sidebar {
+    border-color: #fff;
+    background: #1e262d;
+    color: #f5f8fa;
+    margin-left: 2px;
+    border-color: rgba(255, 255, 255, 0.08);
+
+    width: 340px;
+    height: 100%;
+    float: left;
+    padding: 19px;
+    position: absolute;
+    right: 0;
+}
+
+.rScrollBox{
+    position: relative;
+    height: 100%;
+    max-width: 100%;
+    outline: none;
+    direction: ltr;
+    overflow-y: auto;
+
+    /*max-height: 1562px;*/
+}
+
+.rContainer{
+    overflow: hidden;
+    width: auto;
+    height: auto;
+}
+
+.asideContent{
+    float: left;
+    width: 100%;
+    height: 390px;
+    margin-bottom: 20px;
+    overflow: auto;
+    padding-right: 18px;
+}
+
+.as_content_title{
+    color: #fff;
+    font-weight: 400;
+    font-size: 20px;
+    width: 100%;
+    /*float: left;*/
+    margin-bottom: 15px;
+}
+
+.as_content{
+
+}
+
+.as_item_a{
+    width: 100%;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.as_item_a .image{
+    position: relative;
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    margin: 0;
+    padding-top: 40%;
+}
+
+.as_item_a .image img {
+    width: 100%;
+    position: absolute;
+    margin-top: -40%;
+}
+
+.as_item_a .image .as_data{
+    background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    float: left;
+    padding: 10px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    background-color: transparent;
+    background-repeat: repeat-x;
+    color: #fff;
+}
+
+span.as_quality{
+    color: #fff;
+    background: #464435;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+.as_item_a .image .as_data h3{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.as_item_a .image .as_data span.as_date{
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+}
+
+/** Buttons pagination */
+
+.pag_episodes {
+    background: #171d22;
+    width: 100%;
+    float: left;
+    margin-bottom: 0;
+    border-top: solid 1px #ffffff47;
+    border-bottom: solid 1px #ffffff47;
+}
+
+.pag_episodes .ep_item{
+    width: calc(100%/ 3);
+    float: left;
+    text-align: center;
+}
+
+.pag_episodes .ep_item a{
+    color: rgba(255, 255, 255, 0.6);
+    /*background: rgba(0, 0, 0, 0.5);*/
+
+    padding: 15px;
+    float: left;
+    width: 100%;
+}
+
+.pag_episodes .ep_item a.nt{
+    color: #6d6d6d;
+    cursor: not-allowed;
+}
+
+#single .content .sbox {
+    width: 100%;
+    float: left;
+    padding: 25px 40px;
+    background: 0;
+    border-bottom: solid 3px;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sbox h1,.sbox h2{
+    float: left;
+    width: 100%;
+    margin-bottom: 8px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+h1.inf_episodio{
+    font-size: 30px;
+}
+
+/** Lista de videos */
+#categ_content{
+    background: transparent;
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+
+#categ_carpeta, #categ_carpeta .carpeta_content{
+    width: 100%;
+    float: left;
+}
+
+#categ_carpeta .carpeta_content:last-child{
+    margin-bottom: 0;
+}
+
+#categ_carpeta .se-a{
+    width: 100%;
+    float: left;
+}
+
+#categ_carpeta ul.videos{
+    width: 100%;
+    float: left;
+    list-style: none;
+}
+
+#categ_carpeta ul.videos li{
+    border-color: rgba(255, 255, 255, 0.08);
+    width: 100%;
+    float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 1px;
+}
+
+#categ_carpeta ul.videos li .imagen{
+    width: 90px;
+    float: left;
+    margin-top: 13px;
+}
+
+#categ_carpeta ul.videos li .imagen img{
+    /* max-width: 120%; */
+    height: 50px;
+    width: 100px;
+}
+
+#categ_carpeta .carpeta_content .se-a ul.videos li .numerando{
+    float: left;
+    padding: 19px;
+    margin: 10px 0;
+    border-right: solid 1px;
+    width: 80px;
+    text-align: center;
+    font-weight: 600;
+}
+
+#categ_carpeta .carpeta_content .se-a ul.videos li .episodiotitle{
+    float: left;
+    padding: 19px;
+    width: calc(100% - 50px);
+    padding-left: 190px;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#categ_carpeta .carpeta_content .se-a ul.videos li .episodiotitle a{
+    color: #fff;
+
+    width: 100%;
+    line-height: 20px;
+    float: left;
+    font-size: 14px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#categ_carpeta .carpeta_content .se-a ul.videos li .episodiotitle span.date{
+    color: rgba(255, 255, 255, 0.5);
+
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 5px;
+    font-weight: 300;
+}
+
+/** categorias */
+.categorias{
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.categorias nav.categ{
+    padding: 10px 0;
+
+    padding-bottom: 25px;
+    border-bottom: 2px solid #37b19585;
+}
+
+.categorias nav{
+    padding: 10px 0;
+    padding-bottom: 20px;
+    float: left;
+    width: 100%;
+}
+
+.categorias nav h2{
+    font-weight: 400;
+    font-size: 17px;
+    width: 10px;
+    float: left;
+    margin-bottom: 15px;
+}
+
+.categorias .cat_carpetas{
+    font-size: 10px;
+    float: right;
+    margin-right: 25px;
+    font-weight: 100;
+    margin-top: 5px;
+}
+
+.categorias nav.categ ul{
+    overflow: hidden;
+    max-height: 282px;
+    float: left;
+    width: 100%;
+}
+
+.categorias nav.categ ul li{
+    border-bottom: solid 1px rgba(255, 255, 255, 0.08);
+
+    float: left;
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+}
+
+.categorias nav.categ ul li a{
+    color: snow;
+
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.categorias nav.categ ul li i{
+    float: right;
+    font-style: normal;
+    font-size: 11px;
+}
+
+.tags{
+    margin-left: -5%;
+    font-size: 1em;
+    color: white;
+    max-width: 90%;
+}
+
+.tags a{
+    /*font-size: 0.8em;*/
+    margin: 3px;
+    color: rgba(189, 244, 245, 0.34);
+}
+
+/*.vjs-menu-content{
+    overflow: hidden !important;
+}*/
+
+/*.vjs-menu-item{
+    white-space: nowrap;
+    overflow: hidden;
+}*/
+
+#info .edit{
+    background-color: #07789a;
+    padding: 9px;
+    float: right;
+}
+
+#info .edit span{
+    margin-right: 7px;
+    margin-top: 15px;
+}
+
+#info .edit a{
+    color: #FFFFFF !important;
+}
+
+@media screen and (max-width: 1000px) {
+
+    html,body
+    {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        overflow-x: hidden;
+    }
+
+    #single .sidebar {
+        width: 100%;
+        border-left: 0;
+        margin-left: 0;
+        position: relative;
+    }
+
+    #single .content{
+        width: 100% !important;
+    }
+
+    .navbar-dark .navbar-brand{
+        width: 120px;
+        margin: auto;
+    }
+
+    #info .edit{
+        background-color: #07789a;
+        padding: 9px;
+        float: right;
+        margin-right: -20px;
+    }
+
+    #info .edit span{
+        margin-right: 7px;
+        margin-top: 15px;
+    }
+
+    .sinfo{
+        padding: 25px 15px !important;
+    }
+
+    #categ_carpeta .carpeta_content .se-a ul.videos li .episodiotitle{
+        width: calc(120% - 80px);
+    }
+}

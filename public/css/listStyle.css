@@ -1,0 +1,156 @@
+body{
+    background-color: #f1f0f0 !important;
+    font-family: 'Source Sans Pro',sans-serif;
+}
+
+img{
+    vertical-align: initial !important;
+}
+
+.listas{
+    width: 100%;
+    /* max-width: 400px; */
+    text-align:  center;
+    background-color: #fafafa;
+    padding: 5px;
+    border-radius: 5px;
+    list-style: none;
+    border: 1px solid #a7a7a7;
+    display: inline-block;
+    box-shadow: 2px 3px 2px 0px #00000021;
+}
+
+.listas .titulo{
+    color: #24ce32;
+    text-decoration: none;
+    text-transform: initial;
+    text-shadow: 1px 0px 1px black;
+}
+
+.listas .folder{
+    float: left;
+    position: relative;
+    display: inline;
+    padding: 13px;
+    margin-left: 15px;
+}
+
+.listas .cantidad{
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
+    position: absolute;
+    bottom: 57px;
+    left: 28px;
+    height: 40px;
+    width: 237px;
+    float: left;
+    padding: 10px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    background-color: transparent;
+    background-repeat: repeat-x;
+    color: #fff;
+}
+
+
+.btn-info{
+    color: #000;
+    font-family: "PT Sans";
+    background-color: #ffffff;
+    border-color: #17a2b8;
+}
+
+.listas h2{
+    text-align:  left;
+    /* display: inline; */
+    border-bottom: 1px solid #9e9898;
+}
+
+.listas li{
+
+float:  left;
+
+width: 20%;
+
+/* display:  inline; */
+}
+
+.btn-secondary{
+    width: 100%;
+}
+
+#dt_contenedor{
+    height: 1500px;
+    /* background-color: #3f474ec2; */
+}
+
+#dt_contenedor #contenedor .videos{
+    /* background-color: #88909873; */
+    width: 100%;
+    padding: 20px 5px;
+    height: auto;
+    top: 2px;
+    margin: 10px auto;
+}
+
+.btn-primary{
+    width: 96%;
+    background-color: #f7f5f5;
+    margin: 5px;
+    color: #2a59bf;
+    font-weight:  bold;
+    text-shadow: 0px 1px 0.1px #b7b7b7;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+    .listas li h2{
+        font-size: 1em;
+        padding-bottom: 4px;
+    }
+
+    .listas{
+    /* display: block; */
+    /* width: 90%; */
+    /* margin: 9px auto; */
+    /* background-color: aliceblue; */
+    }
+
+    .btn-primary{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 90%;
+        margin: 5px;
+        background-color: #ffffff;
+        border-color: #d2d2d2;
+    }
+
+    #dt_contenedor #contenedor .videos{
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .modal-title nav{
+        font-size: 0.9em;
+    }
+
+    .modal-body a{
+    }
+
+    .listas .folder{
+        /* margin-left: 12%; */
+    }
+}
+
+@media (min-width: 374px) and (max-width: 583px) {
+    .listas .folder{
+        margin-left: -20px;
+    }
+}
+
+@media screen and (max-width: 373px) {
+    .listas .folder{
+        margin-left: 5%;
+    }
+}
+

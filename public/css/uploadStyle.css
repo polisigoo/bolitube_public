@@ -1,0 +1,139 @@
+html, body{
+    background-color: #3f474e;
+    color: #fff;
+
+    margin: 0 !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    /*color: #212529 !important;*/
+    text-align: left !important;
+    /*background-color: #fff !important;*/
+}
+
+body{
+    font-family: 'Source Sans Pro',sans-serif !important;
+}
+
+.navbar-brand img{
+    vertical-align: initial !important;
+}
+
+#contenedor{
+    width: 97%;
+    margin: 20px auto;
+    background-color: #3a4148;
+    padding-bottom: 5px;
+    color: #0def20;
+    padding-left: 35px;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
+.replace-text{
+    text-align: center;
+    width: 95%;
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 25px;
+    margin-top: 15px;
+    text-shadow: 5px 5px 7px black;
+}
+
+.w3-input{
+    width: 95% !important;
+}
+
+#pickfiles{
+    float: left;
+}
+
+#pickfiles, #uploadfiles{
+    /*padding: 15px;*/
+    border-radius: 5px;
+}
+
+#uploadfiles{
+    float: right;
+    margin-right: 5%;
+    text-decoration: none;
+}
+
+
+.upload-form label{
+    color: #fff;
+    font-weight:  bold;
+    text-shadow: 5px 3px 16px black;
+}
+
+#filelist{
+    text-align: center;
+}
+
+.icon-cloud-upload{
+    margin-right: 5px;
+}
+
+.icon-plus{
+    margin-right: 5px;
+}
+
+#btns{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#tags{
+    /*float:left;
+    border:1px solid #ccc;
+    padding:5px;
+    font-family:Arial;*/
+}
+#tags > span{
+    cursor:pointer;
+    display:block;
+    float:left;
+    color:#fff;
+    background: #343b42;
+    padding:5px;
+    padding-right:25px;
+    margin:4px;
+}
+#tags > span:hover{
+    opacity:0.7;
+}
+#tags > span:after{
+    position:absolute;
+    content:"×";
+    border:1px solid;
+    padding:2px 5px;
+    margin-left:3px;
+    font-size:11px;
+}
+#tags > input{
+    background:#eee;
+    border:0;
+    padding: 8px;
+    width:auto;
+}
+
+.etique{
+    margin: 25px 0;
+    width: 95%;
+    color: #000;
+    background-color: #fff;
+    padding: 5px;
+    height: 50px;
+}
+
+.upload-form p, .upload-form #nota{
+    color: #b7b7b7d1;
+    font-weight:  bold;
+}
+
+
+@media screen and (max-width: 1000px) {
+    #nota{
+        color: #3f474e;
+    }
+}

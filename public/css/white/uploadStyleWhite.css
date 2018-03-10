@@ -1,0 +1,170 @@
+html, body{
+    background-color: #FFF;
+    color: #000;
+    margin: 0 !important;
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,"Segoe UI","Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    /*color: #212529 !important;*/
+    text-align: left !important;
+    /*background-color: #fff !important;*/
+}
+
+body{
+    font-family: Roboto,'Source Sans Pro',sans-serif !important;
+}
+
+html, body {
+    background: #f1f0f0;
+    font-size: 13px;
+    line-height: 1.26666667;
+    color: #000000;
+}
+
+.navbar-brand img{
+    vertical-align: initial !important;
+}
+
+#contenedor{
+    width: 91%;
+    margin: 20px auto;
+    padding-bottom: 5px;
+    /* color: #ec9b00; */
+    border-radius: 5px;
+
+    /**test*/
+    position: relative;
+    /* width: 1003px; */
+    overflow: hidden;
+    border: 1px solid #ddd;
+    background-color: #fbfbfb;
+    padding: 15px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "PT Sans", sans-serif;
+}
+
+.replace-text{
+    text-align: center;
+    /* width: 95%; */
+    color: indigo;
+    text-transform:  uppercase;
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 7px;
+    /* font-weight:  bold; */
+    /* margin-top: 15px; */
+    text-shadow: 5px 5px 7px #e4e1e1;
+
+    /* test */
+    /* font-family: "PT Sans"; */
+    margin-bottom: .5rem;
+    /* font-family: inherit; */
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 2.5rem;
+    /* text-transform: uppercase; */
+    text-align: center;
+    text-shadow: 0px 1px 2px #06060670;
+    color: #212529;
+}
+
+.w3-input{
+    /* width: 95% !important; */
+}
+
+#pickfiles{
+    float: left;
+}
+
+#pickfiles, #uploadfiles{
+    /*padding: 15px;*/
+    border-radius: 5px;
+}
+
+#uploadfiles{
+    float: right;
+    /* margin-right: 5%; */
+    text-decoration: none;
+}
+
+
+.upload-form label{
+    color: #000;
+
+    /* font-weight: bold; */
+    font-size: 1.1rem;
+    /*text-shadow: 2px 2px 8px darkgrey;*/
+}
+
+#filelist{
+    text-align: center;
+}
+
+.icon-cloud-upload{
+    margin-right: 5px;
+}
+
+.icon-plus{
+    margin-right: 5px;
+}
+
+#btns{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#tags{
+    /*float:left;
+    border:1px solid #ccc;
+    padding:5px;
+    font-family:Arial;*/
+}
+#tags > span{
+    cursor:pointer;
+    display:block;
+    float:left;
+    color:#fff;
+    background: #343b42;
+    padding:5px;
+    padding-right:25px;
+    margin:4px;
+}
+#tags > span:hover{
+    opacity:0.7;
+}
+#tags > span:after{
+    position:absolute;
+    content:"×";
+    border:1px solid;
+    padding:2px 5px;
+    margin-left:3px;
+    font-size:11px;
+}
+#tags > input{
+    background: #ffffff;
+    border:0;
+    padding: 8px;
+    width: 49%;
+    border-bottom: 1px solid #ccc;
+}
+
+.etique{
+    margin: 25px 0;
+    width: 95%;
+    color: #000;
+    background-color: #fff;
+    padding: 5px;
+    height: 50px;
+}
+
+.upload-form p, .upload-form #nota{
+    color: #000000d1;
+    font-weight: 100;
+}
+
+@media screen and (max-width: 1000px) {
+    #nota{
+        color: #3f474e;
+    }
+}

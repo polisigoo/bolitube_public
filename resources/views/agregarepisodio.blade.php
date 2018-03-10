@@ -1,0 +1,304 @@
+@extends("layouts/plantillaPrincipal")
+
+@section("Title")
+Upload @endsection
+
+@section("links")
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script type="text/javascript" src="{{ asset('js/plupload.full.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.min.css') }}">
+    <link href="{{ asset("css/fonts/style.css") }}" rel="stylesheet">
+    {{--<link rel="stylesheet" href="{{ asset('css/uploadStyle.css') }}">--}}
+    {{--<link rel="stylesheet" href="{{ asset('css/uploadercss.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('css/white/uploadStyleWhite.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/white/uploaderWhite.css') }}">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+@endsection
+
+@section("body")
+<div id="dt_contenedor">
+@include("layouts.navbarWhite")
+
+<div id="contenedor">
+    <div class="upload-form" id="container">
+        <h1 class="replace-text">Upload Form</h1>
+        <div class="serie">
+            <label>Serie</label>
+                <select name="series" id="series">
+                    <option value="">Select</option>
+                    @foreach($series as $serie)
+                        <option value="{{ $serie->id }}">{{ $serie->show_name }}</option>
+                    @endforeach
+                </select><br>
+
+            <label>Temporada</label>
+            <select name="temporadas" id="temporadas">
+                <option value="">Select</option>
+            </select><br>
+
+            <label>Episodio</label>
+            <select name="episodios" id="episodios">
+                <option value="">Select</option>
+            </select>
+        </div>
+
+        <div class="50"style="width: 50%; display: inline-block; float: left">
+        <label>Fecha del primer episodio</label>
+        <input type="number" class="field__input w3-input w3-animate-input form-control" name="p_ep" id="p_ep" placeholder="2010" min="1900" max="2050"><br>
+        </div>
+
+        <form action="{{ url('/create/episodio') }}" method="POST">
+            {{ csrf_field()}}
+        <div class="50" style="width: 50%; display: inline-block; float: left">
+        <label>Titulo original</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="t_original" id="t_original" readonly><br>
+        </div>
+
+        <div class="50"style="width: 50%; display: inline-block; float: left">
+        <label>Titulo</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="titulo_t" id="titulo_t"><br>
+        </div>
+
+        <label>Resumen</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="resumen" id="resumen" readonly><br>
+
+        <label>Primera transmision</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="p_transmision" id="p_transmision" readonly><br>
+
+        <label>Ultima transmision</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="u_transmision" id="u_transmision" readonly><br>
+
+        <label>Generos (Separados por una coma)</label>
+        <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="generos" id="generos"><br>
+
+        <div class="50"style="width: 50%; display: inline-block; float: left">
+        <label>Episodios totales</label>
+        <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="total_e" id="total_e" readonly><br>
+        </div>
+
+        <div class="50" style="width: 50%; display: inline-block; float: left">
+        <label>Cantidad temporadas</label>
+        <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="cant_temp" id="cant_temp" readonly><br>
+        </div>
+
+        <div class="50" style="width: 50%; display: inline-block; float: left">
+            <label>Creadores</label>
+            <input type="text" class="field__input w3-input w3-animate-input form-control disabled" name="creador" id="creador" readonly><br>
+        </div>
+
+        <div class="50" style="width: 50%; display: inline-block; float: left">
+            <label>Poster path</label>
+            <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="post_path" id="post_path" readonly><br>
+        </div>
+
+        <div class="50" style="width: 50%; display: inline-block; float: left">
+            <label>Imagen fondo</label>
+            <input type="url" class="field__input w3-input w3-animate-input form-control disabled" name="fondo_path" id="fondo_path" readonly><br>
+        </div>
+
+            <div id="btns">
+                <button type="submit" id="pickfiles" class="button w3-teal" style="display: none"><span class="icon-cloud-upload"></span>Guardar serie</button>
+                <a id="uploadfiles" class="button w3-teal" href="javascript:;"><span class="icon-cloud-upload"></span>Buscar!</a>
+            </div>
+        </form>
+
+        <div>
+            <img src="" alt="" id="fondo_p" width="470px;" height="370px">
+            <img src="" alt="" id="post_p" width="270px;" height="370px">
+        </div>
+
+
+
+<div id="single">
+    
+</div>
+</div>
+</div>
+@endsection
+@section('afterjquery')
+        <script>
+            $( document ).ready(function() {
+                $('#series').on('change', function() {
+
+                    $('#temporadas')
+                        .empty()
+                        .append('<option value="">Select..</option>')
+                    ;
+
+                    $.ajax({
+                        data: {
+                            "serie" : $(this).val()
+                        },
+                        url: '{{ url('/search/episodio') }}',
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            var myselect = document.getElementById("temporadas");
+
+                            for (var i = 1; i <= response; i++) {
+                                var option = document.createElement("option");
+                                option.value = i;
+                                option.text = "Temporada " + i;
+                                myselect.appendChild(option);
+                            }
+
+                            //console.log(response);
+                            //$('#pickfiles').attr('style', 'display: block');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+                $('#temporadas').on('change', function() {
+                    var t = $(this).val();
+
+                    $('#episodios')
+                        .empty()
+                        .append('<option value="">Select..</option>')
+                    ;
+
+                    $.ajax({
+                        data: {
+                            "serie" : $('#series').val(),
+                            "temporada" : t
+                        },
+                        url: '{{ url('/search/episodio') }}',
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            var myselect = document.getElementById("episodios");
+
+                            for (var i = 1; i <= response; i++) {
+                                var option = document.createElement("option");
+                                option.value = i;
+                                option.text = "Episodio "+ t + "x" + i;
+                                myselect.appendChild(option);
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+                $('#episodios').on('change', function() {
+                    var t = $('#temporadas').val();
+
+                    $.ajax({
+                        data: {
+                            "serie" : $('#series').val(),
+                            "temporada" : t,
+                            "episodio" : $(this).val()
+                        },
+                        url: '{{ url('/search/episodio') }}',
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            ob = JSON.parse(response);
+                            var g = [];
+                            var c = [];
+
+                            $('#t_original').val(ob.original_name);
+                            $('#resumen').val(ob.overview);
+
+                            $('#p_transmision').val(ob.first_air_date);
+                            $('#u_transmision').val(ob.last_air_date);
+
+                            $('#generos').val(g.toString());
+
+                            $('#total_e').val(ob.number_of_episodes);
+                            $('#cant_temp').val(ob.number_of_seasons);
+
+                            $('#titulo_t').val(ob.name);
+
+                            $('#creador').val(c.toString());
+
+                            $('#post_path').val('https://image.tmdb.org/t/p/w500' + ob.poster_path);
+                            $('#fondo_path').val('https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
+
+                            $('#post_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.poster_path);
+                            $('#fondo_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
+
+                             console.log(ob);
+                            $('#pickfiles').attr('style', 'display: block');
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+                $('#uploadfiles').click(function () {
+                    if ($('#titulo').val() !== "") {
+
+                        $.ajax({
+                            data: {
+                                "title" : $('#titulo').val(),
+                                "fecha" : $('#p_ep').val()
+                            },
+                            url: '{{ url('/search/serie') }}',
+                            type: 'post',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                ob = JSON.parse(response);
+                                var g = [];
+                                var c = [];
+
+                                ob.genres.forEach(function(valor, indice, array) {
+                                    g.push(valor.name);
+                                });
+
+                                ob.created_by.forEach(function(valor, indice, array) {
+                                    c.push(valor.name);
+                                });
+
+
+                                $('#t_original').val(ob.original_name);
+                                $('#resumen').val(ob.overview);
+
+                                $('#p_transmision').val(ob.first_air_date);
+                                $('#u_transmision').val(ob.last_air_date);
+
+                                $('#generos').val(g.toString());
+
+                                $('#total_e').val(ob.number_of_episodes);
+                                $('#cant_temp').val(ob.number_of_seasons);
+
+                                $('#titulo_t').val(ob.name);
+
+                                $('#creador').val(c.toString());
+
+                                $('#post_path').val('https://image.tmdb.org/t/p/w500' + ob.poster_path);
+                                $('#fondo_path').val('https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
+
+                                $('#post_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.poster_path);
+                                $('#fondo_p').attr('src', 'https://image.tmdb.org/t/p/w500' + ob.backdrop_path);
+
+                                // console.log(ob);
+                                $('#pickfiles').attr('style', 'display: block');
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                });
+            });
+    </script>
+    <script>
+        $('#a-upload').addClass('active');
+    </script>
+@endsection

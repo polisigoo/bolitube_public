@@ -1,0 +1,113 @@
+
+/* Select &amp;amp; Upload Buttons */
+.upload-form .button {
+    border-radius: 3px !important;
+    display: inline-block;
+    height: 30px;
+    margin: 15px 0;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #505050;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 30px;
+    background: -webkit-linear-gradient(top, #000000 0%, #000000 100%);
+}
+
+.upload-form .button:hover {
+    background: #ffffff;
+    background: -webkit-linear-gradient(top, #e6e6e6 0%, #eceaea 100%);
+    color: black !important;
+    background: -moz-linear-gradient(top, #bbb9b9 0%, #757575 100%);
+    background: -o-linear-gradient(top, #bbb9b9 0%, #757575 100%);
+    background: -ms-linear-gradient(top, #bbb9b9 0%, #757575 100%);
+    background: linear-gradient(top, #bbb9b9 0%, #757575 100%);
+}
+
+.upload-form #pickfiles {
+    width: 99px;
+    float: left;
+    /* border-right: 1px solid #999; */
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 3px 3px 10px 0px black;
+}
+
+.upload-form #pickfiles span{
+    position:relative;
+    top: calc(32% - 10px);
+    margin-right: 5px;
+    font-size: 0.9em;
+}
+
+.upload-form #uploadfiles {
+    width: 100px;
+    float: right;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+    box-shadow: 3px 3px 10px 0px black;
+}
+
+.upload-form #uploadfiles span{
+    position:relative;
+    top: calc(40% - 10px);
+    margin-right: 5px;
+}
+
+/* Added Files */
+.upload-form .addedFile {
+    position: relative;
+    display: block;
+    text-align: start;
+    overflow: hidden;
+    width: 95%;
+    word-break: break-all;
+    margin-bottom: 5px;
+    padding: 0 0 0 25px;
+    height: 30px;
+    margin: 25px 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 30px;
+    color: #646464;
+    background: #f6f6f6;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.addedFile b{float: right;margin-right: 5px;}
+
+#myProgress {
+    border-radius: 2px;
+    position: relative;
+    width: 95%;
+    height: 12px;
+    background-color: #b5b4b4;
+}
+
+#myBar {
+    /* border-radius: 10px; */
+    position: absolute;
+    top: 1px;
+    height: 87%;
+    background-color: #00bf00;
+}
+
+.icon-reply, .icon-file-empty, #ver, #sbir{
+    color: white;
+    text-decoration: none;
+    margin-right: 3px;
+}
+
+.icon-reply{
+    font-size: 0.9em;
+}
+
+#ver, #sbir{
+    color: white;
+    font-size: 1.2em;
+}
