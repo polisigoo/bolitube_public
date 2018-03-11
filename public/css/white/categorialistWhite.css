@@ -65,9 +65,8 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
 .videos .categ_title{
     text-align: center;
-    font-weight: bold;
     font-size: 1.2em;
-    border-bottom: 2px solid #292929;
+    /* border-bottom: 2px solid #292929; */
     padding-bottom: 5px;
     font-family: Roboto, Arial, sans-serif;
 }
@@ -146,6 +145,15 @@ ul.video li .date{
     color: #ffffff;
 }
 
+.info{
+    border-bottom: 2px solid #292929;
+    /* width: 21%; */
+    /* margin: auto; */
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
 @media screen and (min-width: 482px) and (max-width: 1022px) {
     .video{
         width: 100%;

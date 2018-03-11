@@ -18,32 +18,65 @@ Home @endsection
 <div id="single">
     <div class="videos" id="">
            <div class="categoria" id="{{ $serie->show_name }}">
-           <h1 class="categ_title">{{ $carpeta->carpeta_season }}</h1>
-            <?php  $videos = App\Video::select('titulo', 'unique_id', 'created_at', 'image_name', 'categoria', 'carpeta_season')
-                ->where('carpeta_season', e($carpeta->carpeta_season))
-                ->where('categoria', $categoria)
-                ->get();
-            ?>
-            @foreach($videos as $video)
-           <ul class="video">
-               <li>
+               <div class="info">
+                   <h1 class="categ_title">{{ $serie->show_name }}</h1>
                    <div class="imagen">
-                       <a href="{{ route('video.watch', ['videoid' => $video->unique_id]) }}">
-                           @if(empty($video->image_name))
-                               <img src="{{ asset('css/img/question.png') }}" alt="{{ $video->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
+                       <a href="#">
+                           @if(empty($serie->poster_path))
+                               <img src="{{ asset('css/img/question.png') }}" alt="{{ $episodio->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
                            @else
-                           <img src="{{ url('/storage/images/'.$video->categoria .'/'.$video->carpeta_season.'/hq'.$video->image_name) }}" alt="{{ $video->titulo }}" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;" id="imagen">
+                               <img src="{{ $serie->poster_path }}" alt="{{ $serie->show_name }}" style="margin-top: -3px;width: 211px;height: 211px;border-radius: .25rem;" id="imagen">
                            @endif
                        </a>
                    </div>
-                   <div class="title">
-                       <a href="{{ route('video.watch', ['videoid' => $video->unique_id]) }}">{{ $video->titulo }}</a>
-                       <span class="date">{{ date("F d, Y", strtotime($video->created_at)) }}</span>
-                   </div>
-               </li>
-           </ul>
+               </div>
+
+   <div id="accordion">
+    @for($i=1; $i <= $serie->temporadas; $i++)
+        <?php $episodios = App\Models\Episodio::where('temporada', $i)
+                       ->where('serie_id', $serie->id)
+                       ->orderBy('temporada', 'asc')
+                       ->orderBy('episodio', 'asc')
+                       ->get(); ?>
+       @if(!$episodios->isEmpty())
+        <div class="season card">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#season{{$i}}" aria-expanded="true" aria-controls="collapseOne">
+                Temporada {{ $i }}
+            </button>
+            <div class="episodes collapse show" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+            @foreach($episodios as $episodio)
+                <ul class="video">
+                   <li>
+                       <div class="imagen">
+                           <a href="{{route('serie.watch',
+                                        ['serieuri' => $serie->uri,
+                                        'temporada' => $episodio->temporada,
+                                        'episodio' => $episodio->episodio]) }}">
+                               @if(empty($episodio->image_path))
+                                   <img src="{{ asset('css/img/question.png') }}" alt="{{ $episodio->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
+                               @else
+                               <img src="{{ $episodio->image_path }}" alt="{{ $episodio->titulo }}" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;" id="imagen">
+                               @endif
+                           </a>
+                       </div>
+                       <div class="title">
+                           <a href="{{route('serie.watch',
+                                        ['serieuri' => $serie->uri,
+                                        'temporada' => $episodio->temporada,
+                                        'episodio' => $episodio->episodio]) }}">Episodio {{ $episodio->episodio }} ({{ $episodio->titulo }})</a>
+                           <span class="date">{{ date("F d, Y", strtotime($episodio->fecha_estreno)) }}</span>
+                       </div>
+                   </li>
+                </ul>
             @endforeach
-           </div>
+                </div>
+            </div>
+        </div>
+        @endif
+    @endfor
+     </div>
+    </div>
     </div>
 </div>
 </div>

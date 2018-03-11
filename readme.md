@@ -15,5 +15,6 @@ url
 - Dejar editar si al usuario le pertenece ese video. (Punto 2)
 - Agregar los errores y estilos.
 - Sqlmap testear en search y otras
+- **VALIDACION** de que la serie no exista cuando se crea otra.
 
 **...**

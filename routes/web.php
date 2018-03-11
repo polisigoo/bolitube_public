@@ -24,7 +24,10 @@ Route::get('/watch', function (){
 Route::get('/series/{serieuri}/{temporada}/{episodio}/', 'SerieController@serie')->name('serie.watch');
 
 //Lista de episodios
-Route::get('/series/{serieuri}', 'SerieController@serieList')->name('serie.list');
+Route::get('/series/', 'PageController@serieList')->name('series.list');
+
+//Lista de episodios
+Route::get('/series/{serieuri}', 'SerieController@episodeslist')->name('episodios.list');
 
 
 /** RELATED WITH VIDEOS */

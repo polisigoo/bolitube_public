@@ -16,14 +16,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class PageController extends Controller
 {
 
-    public function list(){
-        $categorias = DB::table('videos')->select('categoria')->distinct()->get();
+    public function serielist(){
+        $series = Serie::all();
 
-        $videos = DB::table('videos')->select('titulo', 'unique_id')->get();
-
-        $lista = DB::table('videos')->select('categoria', 'carpeta_season')->orderBy('categoria', 'id', 'carpeta_season', 'desc')->distinct()->get();
-
-        return view('list')->with(compact('categorias', 'videos', 'lista'));
+        return view('list')->with(compact('series'));
     }
 
     public function listCategoria($categoria){

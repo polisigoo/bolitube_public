@@ -48,7 +48,9 @@ class SerieController extends Controller
                             'serie'));
     }
 
-    public function serieList($serieuri){
+    public function episodeslist($serieuri){
+        $serie = $serieuri;
 
+        return view('categorialist')->with(compact('serie'));
     }
 }
