@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Serie;
 use App\Video;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -29,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::model('videoid', Video::class);
+        Route::model('serieuri', Serie::class);
     }
 
     /**

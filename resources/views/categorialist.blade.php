@@ -17,8 +17,7 @@ Home @endsection
 <div id="contenedor">
 <div id="single">
     <div class="videos" id="">
-       @foreach($carpetas as $carpeta)
-           <div class="categoria" id="{{ $carpeta->carpeta_season }}">
+           <div class="categoria" id="{{ $serie->show_name }}">
            <h1 class="categ_title">{{ $carpeta->carpeta_season }}</h1>
             <?php  $videos = App\Video::select('titulo', 'unique_id', 'created_at', 'image_name', 'categoria', 'carpeta_season')
                 ->where('carpeta_season', e($carpeta->carpeta_season))
@@ -45,7 +44,6 @@ Home @endsection
            </ul>
             @endforeach
            </div>
-       @endforeach
     </div>
 </div>
 </div>
