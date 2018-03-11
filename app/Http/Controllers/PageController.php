@@ -251,6 +251,7 @@ class PageController extends Controller
                 $serie->titulo_esp = e($request->input('titulo_t'));
                 $serie->descripcion = e($request->input('resumen'));
                 $serie->id_db = e($request->input('id'));
+                $serie->uri = str_replace(" ", '-', strtolower(e($request->input('titulo_t'))));
                 if($serie->save())
                     return "<h1 style='color: #31e73d; text-align: center'>Serie añadida correctamente</h1><a href='".url('create/serie')."'>Volver</a>";
                 else

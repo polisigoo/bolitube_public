@@ -21,6 +21,12 @@ Route::get('/watch', function (){
     return redirect('/list');
 });
 
+Route::get('/series/{serieuri}/{temporada}/{episodio}/', 'SerieController@serie')->name('serie.watch');
+
+//Lista de episodios
+Route::get('/series/{serieuri}', 'SerieController@serieList')->name('serie.list');
+
+
 /** RELATED WITH VIDEOS */
 //Obtenemos el id del video a ver y devolvemos la vista con el id del video, mime y titulo
 // En la vista es cuando llamamos a la ruta /video/{filename}

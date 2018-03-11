@@ -34,6 +34,8 @@ class CreateSeriesTable extends Migration
             $table->string('descripcion', 900)->nullable();
 
             $table->integer('id_db');
+            $table->string('uri', 80);
+
             $table->timestamps();
         });
     }
