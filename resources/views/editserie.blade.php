@@ -43,13 +43,14 @@ Upload @endsection
 
         <div id="contenedor" style="position:relative;">
             <div class="info">
-                <form action="{{ "GuardarCambios"}}" method="post">
+                <form action="{{ route('serie.edit.save', [
+                                    'serieuri' => request()->serieuri])}}" method="post" id="changesform">
                 <div class="separador">
                     <a href="{{ route('episodios.list', ['serieuri' => request()->serieuri]) }}" target="_blank" id="link">
                             <span class="icon-new-tab"></span></a>
                     <dd>
 
-                    <input type="text" readonly value="{{ route('video.watch', ['videoid' => request()->videoid]) }}" name="url" class="w3-input w3-border i-sml">
+                    <input type="text" readonly value="{{ route('episodios.list', ['serieuri' => request()->serieuri]) }}" name="url" class="w3-input w3-border i-sml">
                     </dd>
                 </div>
 
@@ -78,15 +79,22 @@ Upload @endsection
                         <div class="alert alert-danger">{{ session('error_msg') }}.</div>
                     @endif
 
-                    <label for="titulo">Nombre de la serie</label>
+                    <label for="titulo">Titulo de la serie</label>
                     <input type="text" value="{{ $serie->show_name }}" name="titulo" id="titulo" class="w3-input w3-border w3-round-large" maxlength="90">
                     {{csrf_field()}}
                 </div>
 
                 <div class="separador">
-                    <label for="tags">Descripcion</label>
-                    <input type="text" value="{{ html_entity_decode($serie->descripcion, ENT_QUOTES) }}" name="tags" id="tags" class="w3-input w3-border w3-round-large">
-                    <small>Separa los tags por una coma, e.g: temporada 1, Dr. House,2010,etc</small>
+                    <div class="separador">
+                        <label for="taResumen">Sinopsis de la serie</label>
+                        <textarea name="resumen" id="taResumen" form="changesform" class="form-control" rows="7" style="width: 55%">{{ html_entity_decode($serie->descripcion, ENT_QUOTES) }}</textarea>
+                    </div>
+                </div>
+
+                <div class="separador">
+                    <label for="generos">Generos</label>
+                    <input type="text" name="generos" id="generos" value="{{ $serie->generos }}" class="w3-input w3-border w3-round-large">
+                    <small>Los generos deben ir separados por una coma</small>
                 </div>
                     <button type="submit" value="Submit" class="btn btn-primary btn-sm edit-button right">Guardar</button>
                 </form>
@@ -174,7 +182,7 @@ Upload @endsection
                                 "tp": vsec_uid,
                                 "id2": "{!! $serie->id_db !!}"
                             },
-                            url: '{{ route('serie.edit.save', ["serieuri" => request()->serieuri->uri]) }}',
+                            url: '{{ route('serie.addSeason', ["serieuri" => request()->serieuri->uri]) }}',
                             type: 'post',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

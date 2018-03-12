@@ -28,16 +28,16 @@ class MyHelper
     }
 
     /**
-     * @param $titulo_t [titulo traducido]
-     * @param $temporada_n [numero de temporada]
+     * @param $titulo_t
+     * @param $temporada_n
      * @param $episodio_n
      * @param $resumen
      * @param $video_url
      * @param $keywords
      * @param $transmitido
      * @param $post_path
-     * @param $serie_id [id de la serie en db local]
-     * @param $id [id del ep en tmdb]
+     * @param $serie_id
+     * @param $id
      * @return bool
      */
     public function agregarEpisodio($titulo_t, $temporada_n, $episodio_n, $resumen, $video_url, $keywords, $transmitido, $post_path, $serie_id, $id){
@@ -129,5 +129,10 @@ class MyHelper
         }
 
         return $epAdded;
+    }
+
+    public function urlDesdeDepuracion($codigoDepuracion){
+        $obj = json_decode($codigoDepuracion);
+        return $obj->euri;
     }
 }

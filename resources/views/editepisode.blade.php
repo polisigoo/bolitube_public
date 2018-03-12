@@ -20,14 +20,19 @@ Upload @endsection
 
         <div id="contenedor" style="position:relative;">
             <div class="info">
-                {{-- TODO: POSIBLEMENTE SE PUEDA CAMBIAR LA URL DEL FORM Y CAMBIAR LA INFORMACION DE OTRO VIDEO... VERIFICAR ID O IDK --}}
-                <form action="{{ action('PageController@guardarcambios', ["videoid" => $videoid]) }}" method="post">
+                <form action="{{ route('episode.save',[
+                                'serieuri' => $serie->uri,
+                                'temporada' => request()->temporada,
+                                'episodio' => request()->episodio]) }}" method="post" id="changesform">
                 <div class="separador">
-                    <a href="{{ route('video.watch', ['videoid' => request()->videoid]) }}" target="_blank" id="link">
+                    <a href="{{ route('episodios.list', ['serieuri' => request()->serieuri]) }}" target="_blank" id="link">
                             <span class="icon-new-tab"></span></a>
                     <dd>
 
-                    <input type="text" readonly value="{{ route('video.watch', ['videoid' => request()->videoid]) }}" name="url" class="w3-input w3-border i-sml">
+                    <input type="text" readonly value="{{ route('serie.watch',
+                                ['serieuri' => $serie->uri,
+                                'temporada' => request()->temporada,
+                                'episodio' => request()->episodio]) }}" name="url" class="w3-input w3-border i-sml">
                     </dd>
                 </div>
 
@@ -39,7 +44,7 @@ Upload @endsection
                 {{--<div class="separador">--}}
                     {{--<label for="titutlo">Carpeta / Season</label>--}}
                     {{--<input type="text" value="{{ $carpeta }}" name="carpeta" id="carpeta" class="w3-input w3-border w3-round-large">--}}
-                    <input type="hidden" value="{{ $id }}" name="rel" id="rel" readonly>
+                    <input type="hidden" value="{{ $episode->id }}" name="rel" id="rel" readonly>
                 {{--</div>--}}
 
                 <div class="separador">
@@ -65,33 +70,45 @@ Upload @endsection
                         <div class="alert alert-danger">{{ session('error_msg') }}.</div>
                     @endif
 
-                    <label for="titulo">Titulo del video</label>
-                    <input type="text" value="{{ $titulo }}" name="titulo" id="titulo" class="w3-input w3-border w3-round-large" maxlength="90">
+                    <label for="titulo">Titulo del episodio</label>
+                    <input type="text" value="{{ $episode->titulo }}" name="titulo" id="titulo" class="w3-input w3-border w3-round-large" maxlength="90">
                     {{csrf_field()}}
                 </div>
 
                 <div class="separador">
+                    <label for="video_url">Url del video</label>
+                    @if(empty($episode->video_url))
+                    <input type="url" name="video_url" class="w3-input w3-border w3-round-large" id="video_url" placeholder="drive....">
+                    @else
+                    <input type="url" name="video_url" class="w3-input w3-border w3-round-large" id="video_url" value="{{ $episode->video_url }}">
+                    @endif
+                </div>
+
+                <div class="separador">
+                    <label for="taResumen">Sinopsis del episodio</label>
+                    <textarea name="resumen" id="taResumen" form="changesform" class="form-control" rows="3" style="width: 55%">{{ $episode->resumen }}</textarea>
+                </div>
+
+                <div class="separador">
                     <label for="tags">Tags</label>
-                    <input type="text" value="{{ $tags }}" name="tags" id="tags" class="w3-input w3-border w3-round-large">
+                        <input type="text" value="@foreach($keywords as $key){{ $key }}@endforeach" name="keywords" id="keywords" class="w3-input w3-border w3-round-large">
+
                     <small>Separa los tags por una coma, e.g: temporada 1, Dr. House,2010,etc</small>
                 </div>
                     <button type="submit" value="Submit" class="btn btn-primary btn-sm edit-button right">Guardar</button>
                 </form>
             </div>
-
-            {{-- TODO: HACER UNA PREVIEW DE LA MINIATURA ACTUAL, SI NO TIENE MOSTRAR LA DE QUESTION. --}}
-
             <div class="separador miniatura">
                 <label for="tags" style="width: 100%;">Miniatura</label>
-
-                {{-- TODO: PONER LA IMAGEN A LA DERECHA, SI NO ANDA EL VIDEO DEL TO.DO DE ABAJO --}}
                 <div class="img" style="background-color: #fff5f7; padding: 9px; width: 140px;margin: 5px 0; margin-bottom: 15px;">
-                    @if(empty($image_name))
-                        <img src="{{ asset('css/img/question.png') }}" alt="{{ $titulo }}" style="width: 120px; " id="imagen">
+                    @if($episode->image_path === "https://image.tmdb.org/t/p/w500")
+                        <img src="{{ asset('css/img/missed_image.png') }}" alt="{{ $episode->titulo }}" style="width: 120px; " id="imagen">
                     @else
-                        <img src="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/hq'.$image_name) }}" alt="{{ $titulo }}" style="width: 120px; " id="imagen">
+                        <img src="{{ $episode->image_path }}" alt="{{ $episode->titulo }}" style="width: 120px; " id="imagen">
                     @endif
                 </div>
+
+                <input type="url" name="image_path" class="w3-input w3-border w3-round-m" id="image_path" form="changesform" value="{{ $episode->image_path }}" style="width: 55%">
 
                 <div id="btns">
                     <a id="pickfiles" class="button w3-teal" href="javascript:;" style="padding: 5px; margin: 5px 0;">Elegir otra miniatura</a>
@@ -134,7 +151,7 @@ Upload @endsection
             runtimes : 'html5,flash,silverlight,html4',
             browse_button : 'pickfiles', // you can pass an id...
             container: document.getElementById('contenedor'), // ... or DOM Element itself
-            url : '{{ action('VideosController@savechanges', ['videoid' => $videoid]) }}',
+            url : '{{ 'savechanges' }}',
             flash_swf_url : '../js/Moxie.swf',
             multi_selection : false,
             headers: {
@@ -159,7 +176,7 @@ Upload @endsection
                 UploadFile: function(up, file) {
                     up.setOption('multipart_params', {
                         rel : document.getElementById('rel').value,
-                        ui : '{{ request()->videoid->unique_id }}'
+                        ui : '{{ 'uniqueid' }}'
                     });
                 }
             },

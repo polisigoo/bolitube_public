@@ -376,7 +376,7 @@ class PageController extends Controller
     }
 
 
-    public function serieEditSave($serieuri){
+    public function serieAddSeason($serieuri){
         $serie = $serieuri;
         $helper = new MyHelper();
 
@@ -385,5 +385,41 @@ class PageController extends Controller
         if ($creados === 0){
             return response()->json(['error' => 'No se pudo crear la temporada...'], 400);
         }
+    }
+
+    public function serieEditSave($serieuri){
+        request()->validate([
+            'rel' => 'required',
+            'titulo' => 'required',
+            'resumen' => 'required',
+            'generos' => ''
+        ],[
+            'rel.required' => 'Es necesario especificar un rel',
+            'titulo.required' => 'Es necesario completar el campo titulo',
+            'resumen.required' => 'Es necesario especificar un resumen',
+            'generos.required' => 'Es necesario completar el campo generos'
+        ]);
+
+        if (request()->rel != $serieuri->id)
+            abort(404);
+
+        $serie = Serie::find($serieuri->id);
+
+        if (!empty(request()->titulo) && $serie->show_name != request()->titulo) {
+            $serie->show_name = e(request()->titulo);
+        }
+
+        if (!empty(request()->resumen) && $serie->descripcion != request()->resumen) {
+            $serie->descripcion = e(request()->resumen);
+        }
+
+        if ($serie->generos != request()->generos) {
+            $serie->generos = e(request()->generos);
+        }
+
+        if ($serie->save())
+            return "Cambios guardados";
+        else
+            return "Error al guardar los cambios";
     }
 }

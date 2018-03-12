@@ -23,9 +23,19 @@ Route::get('/watch', function (){
 
 Route::get('/series/{serieuri}/{temporada}/{episodio}/', 'SerieController@serie')->name('serie.watch')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
 
+Route::get('/series/{serieuri}/{temporada}/{episodio}/edit', 'SerieController@episodeEdit')->name('episode.edit')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
+
+Route::post('/series/{serieuri}/{temporada}/{episodio}/save', 'SerieController@episodeSave')->name('episode.save')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
+
+
 Route::get('/series/{serieuri}/edit', 'SerieController@serieedit')->name('serie.edit');
 
-Route::post('/series/{serieuri}/edit/save', 'PageController@serieEditSave')->name('serie.edit.save');
+//Ruta usada para guardar cambios desde el formulario
+Route::post('/series/{serieuri}/edit/savechanges', 'PageController@serieEditSave')->name('serie.edit.save');
+
+//Ruta usada para agregar temporadas
+Route::post('/series/{serieuri}/edit/save', 'PageController@serieAddSeason')->name('serie.addSeason');
+
 
 //Lista de series
 Route::get('/series/', 'PageController@serieList')->name('series.list');

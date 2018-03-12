@@ -80,7 +80,10 @@ Home @endsection
             </div>
             <h1 class="inf_episodio">{{ $episode->titulo }}</h1>
 
-            <div class="edit"><a href="{{ url('edit') }}"><span class="icon-pencil"></span>Editar</a></div>
+            <div class="edit"><a href="{{ route('episode.edit',[
+                                            'seriuri' => $serie->uri,
+                                            'temporada' => $episode->temporada,
+                                            'episodio' => $siguiente->episodio]) }}"><span class="icon-pencil"></span>Editar</a></div>
 
             <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
 
