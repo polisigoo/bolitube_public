@@ -19,7 +19,13 @@ Home @endsection
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
+            @if($episode->video_url !== "Undefined")
             <iframe src="{{ $episode->video_url }}" width="100%" height="480px" id="g-video"></iframe>
+            @else
+                <div style="width: 100%; height: 480px">
+                    <p style="color: red">No se encontro un link valido.</p>
+                </div>
+            @endif
         </div>
 
         <div class="pag_episodes">

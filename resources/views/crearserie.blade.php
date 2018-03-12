@@ -23,6 +23,16 @@ Upload @endsection
 @include("layouts.navbarWhite")
 
 <div id="contenedor">
+    @if($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <h3 style="font-weight: bold">Corrije los siguientes errores:</h3>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li style="margin: 15px 0 15px 45px;">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="upload-form" id="container">
         <h1 class="replace-text">Upload Form</h1>
         <div class="serie">
@@ -36,6 +46,7 @@ Upload @endsection
         </div>
 
         <form action="{{ url('/create/serie') }}" method="POST">
+        <div id="gral_inf" style="display: none">
             {{ csrf_field()}}
         <div class="50" style="width: 50%; display: inline-block; float: left">
         <label>Titulo original</label>
@@ -89,11 +100,15 @@ Upload @endsection
             <input type="number" class="field__input w3-input w3-animate-input form-control disabled" name="id" id="id" readonly><br>
         </div>
 
+        <input type="checkbox" id="todos" name="todos" value="crear_todos"> <label for="cbox2">Agregar todos los episodios y temporadas?</label>
+
             <div id="btns">
                 <button type="submit" id="pickfiles" class="button w3-teal" style="display: none"><span class="icon-cloud-upload"></span>Guardar serie</button>
-                <a id="uploadfiles" class="button w3-teal" href="javascript:;"><span class="icon-cloud-upload"></span>Buscar!</a>
             </div>
+        </div>
         </form>
+
+        <a id="uploadfiles" class="button w3-teal" href="javascript:;"><span class="icon-cloud-upload"></span>Buscar!</a>
 
         <div>
             <img src="" alt="" id="fondo_p" width="470px;" height="370px">
@@ -163,6 +178,8 @@ Upload @endsection
 
                                 // console.log(ob);
                                 $('#pickfiles').attr('style', 'display: block');
+
+                                $('#gral_inf').attr('style', 'display: block');
                             },
                             error: function (error) {
                                 console.log(error);

@@ -15,6 +15,9 @@ class SerieController extends Controller
                     ->where('episodio', e($episodio))
                     ->first();
 
+        if (empty($episode))
+            abort(404);
+
         $keywords = explode(",", $episode->keywords);
 
         $anterior = Episodio::select('episodio', 'titulo')
@@ -52,5 +55,11 @@ class SerieController extends Controller
         $serie = $serieuri;
 
         return view('categorialist')->with(compact('serie'));
+    }
+
+    public function serieedit($serieuri){
+        $serie = $serieuri;
+
+        return view('editserie')->with(compact('serie'));
     }
 }

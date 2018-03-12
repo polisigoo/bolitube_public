@@ -17,7 +17,7 @@
                 <a class="nav-link" href="{{ route('video.upload')}}" id="a-upload">Subir nuevo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('video.list')}}" id="a-list">Lista de videos</a>
+                <a class="nav-link" href="{{ route('series.list')}}" id="a-list">Lista de series</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

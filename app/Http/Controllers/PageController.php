@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Library\GernerateUniqueID;
 
+use App\Library\MyHelper;
 use App\Models\Episodio;
 use App\Models\Serie;
 use App\Video;
@@ -17,6 +18,7 @@ class PageController extends Controller
 {
 
     public function serielist(){
+
         $series = Serie::all();
 
         return view('list')->with(compact('series'));
@@ -227,13 +229,38 @@ class PageController extends Controller
     }
 
     public function saveSerie(Request $request){
+        request()->validate([
+            't_original' => 'required',
+            'cant_temp' => 'required',
+            'resumen' => '',
+            'post_path' => 'required',
+            'fondo_path' => 'required',
+            'generos' => 'required',
+            'p_transmision' => 'required',
+            'id' => 'required',
+            'total_e' => '',
+            'creador' => '',
+            'u_transmision' => '',
+            'titulo_t' => ''
+        ],[
+            't_original.required' => 'Es necesario especificar un video_url',
+            'cant_temp.required' => 'Es necesario completar el campo titulo_t',
+            'resumen.required' => 'Es necesario especificar un post_path',
+            'post_path.required' => 'Es necesario completar el campo serie_id',
+            'fondo_path.required' => 'Es necesario completar el campo transmitido',
+            'generos.required' => 'Es necesario especificar un temporada_n',
+            'p_transmision.required' => 'Es necesario completar el campo episodio_n',
+            'id.required' => 'Es necesario especificar un id_db'
+        ]);
 
         if (!empty($request->input('t_original')) ||
             !empty($request->input('cant_temp'))||
             !empty($request->input('post_path'))||
             !empty($request->input('fondo_path'))||
             !empty($request->input('generos'))) {
+            $helper = new MyHelper();
 
+            if (empty(Serie::select('id_db')->where('id_db', e($request->input('id')))->first())) {
                 $serie = new Serie();
                 $serie->show_name = e($request->input('t_original'));
                 $serie->temporadas = e($request->input('cant_temp'));
@@ -247,11 +274,24 @@ class PageController extends Controller
                 $serie->titulo_esp = e($request->input('titulo_t'));
                 $serie->descripcion = e($request->input('resumen'));
                 $serie->id_db = e($request->input('id'));
-                $serie->uri = str_replace(" ", '-', strtolower(e($request->input('titulo_t'))));
-                if($serie->save())
-                    return "<h1 style='color: #31e73d; text-align: center'>Serie añadida correctamente</h1><a href='".url('create/serie')."'>Volver</a>";
-                else
+                $serie->uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(e($request->input('t_original')))));
+                if ($serie->save()) {
+                    if ($request->input('todo') === 'crear_todos') {
+                        $id_l = Serie::select('id')->where('id_db', e($request->input('id')))->first();
+
+                        $agregados = $helper->creadorMasivoEpisodiosTemporadas($request->input('id'), $id_l->id);
+
+                        return "<h1 style='color: #31e73d; text-align: center'>Serie añadida correctamente con $agregados episodios</h1><a href='" . url('create/serie') . "'>Volver</a>";
+                    }
+
+                    return "<h1 style='color: #31e73d; text-align: center'>Serie añadida correctamente/h1><a href='" . url('create/serie') . "'>Volver</a>";
+                }
+                else{
                     return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar la serie</h1>";
+                }
+            }else{
+                return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar la serie porque ya existe!</h1>";
+            }
         }
     }
 
@@ -325,21 +365,25 @@ class PageController extends Controller
             'episodio_n.required' => 'Es necesario completar el campo episodio_n'
         ]);
 
-        $ep = new Episodio();
-        $ep->titulo = $request->titulo_t;
-        $ep->temporada = $request->temporada_n;
-        $ep->episodio = $request->episodio_n;
-        $ep->resumen = $request->resumen;
-        $ep->video_url = $request->video_url;
-        $ep->keywords = $request->keywords;
-        $ep->fecha_estreno = $request->transmitido;
-        $ep->image_path = $request->post_path;
-        $ep->serie_id = $request->serie_id;
-        $ep->id_db = $request->id;
+        $helper = new MyHelper();
 
-        if($ep->save())
+        $created = $helper->agregarEpisodio($request->titulo_t, $request->temporada_n, $request->episodio_n, $request->resumen, $request->video_url, $request->keywords, $request->transmitido, $request->post_path, $request->serie_id,  $request->id);
+
+        if($created)
             return "<h1 style='color: #31e73d; text-align: center'>Episodio añadida correctamente</h1><a href='".url('create/serie')."'>Volver</a>";
         else
             return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar el episodio</h1>";
+    }
+
+
+    public function serieEditSave($serieuri){
+        $serie = $serieuri;
+        $helper = new MyHelper();
+
+        $creados = $helper->creadorEpisodiosPorTemporada($serie->id_db,$serie->id,intval(request()->tp));
+
+        if ($creados === 0){
+            return response()->json(['error' => 'No se pudo crear la temporada...'], 400);
+        }
     }
 }

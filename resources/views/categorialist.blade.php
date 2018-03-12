@@ -43,7 +43,11 @@ Home @endsection
             <button class="btn btn-link" data-toggle="collapse" data-target="#season{{$i}}" aria-expanded="true" aria-controls="collapseOne">
                 Temporada {{ $i }}
             </button>
+            @if($i === 1)
             <div class="episodes collapse show" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">
+            @else
+            <div class="episodes collapse" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">
+            @endif
                 <div class="card-body">
             @foreach($episodios as $episodio)
                 <ul class="video">
@@ -53,8 +57,8 @@ Home @endsection
                                         ['serieuri' => $serie->uri,
                                         'temporada' => $episodio->temporada,
                                         'episodio' => $episodio->episodio]) }}">
-                               @if(empty($episodio->image_path))
-                                   <img src="{{ asset('css/img/question.png') }}" alt="{{ $episodio->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
+                               @if($episodio->image_path === 'https://image.tmdb.org/t/p/w500')
+                                   <img src="{{ asset('css/img/missed_image.png') }}" alt="{{ $episodio->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
                                @else
                                <img src="{{ $episodio->image_path }}" alt="{{ $episodio->titulo }}" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;" id="imagen">
                                @endif
@@ -64,9 +68,10 @@ Home @endsection
                            <a href="{{route('serie.watch',
                                         ['serieuri' => $serie->uri,
                                         'temporada' => $episodio->temporada,
-                                        'episodio' => $episodio->episodio]) }}">Episodio {{ $episodio->episodio }} ({{ $episodio->titulo }})</a>
-                           <span class="date">{{ date("F d, Y", strtotime($episodio->fecha_estreno)) }}</span>
+                                        'episodio' => $episodio->episodio]) }}">{{ $episodio->episodio }} - {{ $episodio->titulo }}</a>
                        </div>
+                       <div class="date">{{ date("F d, Y", strtotime($episodio->fecha_estreno)) }}</div>
+                       <div class="overview"><p class="resum">{{ $episodio->resumen }}</p></div>
                    </li>
                 </ul>
             @endforeach

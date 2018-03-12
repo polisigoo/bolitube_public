@@ -46,7 +46,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 
 .video a{
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: bold;
     font-family: "PT Sans",Roboto, Arial, sans-serif;
     color: #000;
 }
@@ -58,7 +58,9 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     padding: 5px;
     position:  relative;
     list-style: none;
-    background-color: #f1f1f1;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
     display: inline-block;
     overflow:  hidden;
 }
@@ -83,7 +85,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     /* text-overflow: ellipsis; */
     /* overflow: hidden; */
     position:  absolute;
-    top: 25%;
+    top: 8%;
     display:  inline;
     /* text-align:  center; */
     /* white-space: nowrap; */
@@ -93,6 +95,7 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 .video li{
     border-color: rgba(226, 20, 20, 0.12);
     width: 100%;
+    font-family: "PT Sans",Roboto, Arial, sans-serif;
     padding-top: 5px;
     padding-bottom: 5px;
     /* border-bottom: solid 1px; */
@@ -112,11 +115,19 @@ ul.video li .imagen img{
 
 ul.video li .date{
     color: rgba(0, 0, 0, 0.78);
-    float: left;
+    /* float: right; */
+    right: -85%;
     width: 100%;
     font-size: 12px;
     padding-top: 5px;
     font-weight: 300;
+    /* padding-left: 25px; */
+    /* width: calc(54% - 50px); */
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    position: absolute;
+    top: 17%;
+    display: inline;
 }
 
 .dcategorias{
@@ -149,6 +160,24 @@ ul.video li .date{
     border-bottom: 2px solid #292929;
     /* width: 21%; */
     /* margin: auto; */
+}
+
+.overview{
+    padding: 10px;
+    padding-left: 23px;
+    width: calc(69% - 50px);
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    position: absolute;
+    top: 36%;
+    display: inline;
+    word-wrap: break-word;
+}
+
+.overview .resum{
+    white-space: normal;
+    font-size: 0.9em;
+    line-height: 1.2em;
 }
 
 ::-webkit-scrollbar {

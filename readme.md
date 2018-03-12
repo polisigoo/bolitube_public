@@ -15,6 +15,8 @@ url
 - Dejar editar si al usuario le pertenece ese video. (Punto 2)
 - Agregar los errores y estilos.
 - Sqlmap testear en search y otras
-- **VALIDACION** de que la serie no exista cuando se crea otra.
+- **VALIDACION** de que el episodio no exista, si existe usar update
+- Guardar los links de las imagenes en el js y cuando se haga click
+en  la temporada que se le cambie el src. gl.
 
 **...**

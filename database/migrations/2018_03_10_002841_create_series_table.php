@@ -31,7 +31,7 @@ class CreateSeriesTable extends Migration
             $table->string('generos', 200);
 
             $table->string('titulo_esp', 120)->nullable();
-            $table->string('descripcion', 900)->nullable();
+            $table->longText('descripcion')->nullable();
 
             $table->integer('id_db');
             $table->string('uri', 80);
