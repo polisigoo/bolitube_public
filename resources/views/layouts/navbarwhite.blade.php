@@ -14,10 +14,10 @@
                 <a class="nav-link" href="{{ url('/') }}" id="a-inicio"> Inicio <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('video.upload')}}" id="a-upload">Subir nuevo</a>
+                <a class="nav-link" href="{{ route('series.list')}}" id="a-list">Series</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('series.list')}}" id="a-list">Lista de series</a>
+                <a class="nav-link" href="{{ route('movie.list')}}" id="a-list">Movies</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

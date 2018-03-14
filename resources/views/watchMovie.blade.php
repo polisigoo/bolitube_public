@@ -19,8 +19,8 @@ Home @endsection
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
-            @if($episode->video_url !== "Undefined")
-            <iframe src="{{ $episode->video_url }}" width="100%" height="480px" id="g-video"></iframe>
+            @if($movie->video_url !== "Undefined")
+            <iframe src="{{ $movie->video_url }}" width="100%" height="480px" id="g-video"></iframe>
             @else
                 <div style="width: 100%; height: 480px">
                     <p style="color: red">No se encontro un link valido.</p>
@@ -28,70 +28,23 @@ Home @endsection
             @endif
         </div>
 
-        <div class="pag_episodes">
-            @if($anterior !== null)
-            <div class="ep_item">
-                <a href="{{ route('serie.watch',
-                            ['serieuri' => $serie->uri,
-                            'temporada' => $episode->temporada,
-                            'episodio' => $anterior->episodio]) }}" title="{{ $serie->show_name .' - Episode ' . $anterior->episodio }}">
-                    <i class="icon-arrow-left2"></i> <span>video anterior</span>
-                </a>
-            </div>
-            @else
-            <div class="ep_item">
-                <a class="nt">
-                    <i class="icon-arrow-left2"></i> <span>video anterior</span>
-                </a>
-            </div>
-            @endif
-
-            <div class="ep_item">
-                <a href="{{ url("series/{$serie->uri}/") }}">
-                    <i class="icon-menu2"></i>
-                    <span>lista de episodios</span>
-                </a>
-            </div>
-
-            @if($siguiente !== null)
-                <div class="ep_item">
-                    <a href="{{ route('serie.watch',
-                                ['serieuri' => $serie->uri,
-                                'temporada' => $episode->temporada,
-                                'episodio' => $siguiente->episodio]) }}" title="{{ $serie->show_name .' - Episode ' . $siguiente->episodio }}">
-                        <span>siguiente video</span>
-                        <i class="icon-arrow-right2"></i>
-                    </a>
-                </div>
-            @else
-                <div class="ep_item">
-                    <a class="nt">
-                        <span>siguiente video</span>
-                        <i class="icon-arrow-right2"></i>
-                    </a>
-                </div>
-            @endif
-
-        </div>
-
         <div id="info" class="sbox">
             <div class="modo-cine">
              <button class="btn btn-dark" id="mod-cine">Modo cine <i class="icon-enter" id="c-ico"></i></button>
             </div>
-            <h1 class="inf_episodio">{{ $episode->titulo }}</h1>
+            <h1 class="inf_episodio">{{ $movie->titulo }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
 
-            <div class="edit"><a href="{{ route('episode.edit',[
-                                            'seriuri' => $serie->uri,
-                                            'temporada' => $episode->temporada,
-                                            'episodio' => $siguiente->episodio]) }}"><span class="icon-pencil"></span>Editar</a></div>
+            <div class="edit"><a href="{{ route('movie.watch',[
+                                            'movieuri' => $movie->uri]) }}"><span class="icon-pencil"></span>Editar</a></div>
 
-            <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
+            <div class="overview">
+                <h2>Sinopsis</h2>
+                <h3 class="inf_descripcion">{{ $movie->resumen }}</h3>
+            </div>
 
             <div class="tags">
                 <h6>tags:</h6>
-                @foreach($keywords as $tag)
-                    <h6 style="display: inline; color: #cccccc">{{ $tag }}, </h6>
-                @endforeach
+                    <h6 style="display: inline; color: #cccccc">{{ $movie->keywords }}</h6>
             </div>
         </div>
 
@@ -102,7 +55,7 @@ Home @endsection
         {{--<div type="hidden" id="path" value="url('/')"></div>--}}
 
         <div class="sbox sinfo">
-            <h2>{{ str_replace("_", " ", $serie->show_name) }}</h2>
+            <h2>{{ str_replace("_", " ", $movie->titulo) }}</h2>
             <div id="categ_content" style="padding-top:0">
                 <div id="categ_carpeta">
                     <div class="carpeta_content">
@@ -210,7 +163,7 @@ Home @endsection
     <script>
         $( document ).ready(function() {
             var c = false;
-            $('#TituloDePagina').text('{{ $episode->titulo }}' + ' - ' +'{{ $serie->show_name }}');
+            $('#TituloDePagina').text('{{ $movie->titulo }}');
             $('#mod-cine').click(function () {
                 if(!c){
                     $('#my-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');

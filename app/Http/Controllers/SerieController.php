@@ -131,7 +131,7 @@ class SerieController extends Controller
         if ($ep->save()){
             return "Guardado";
         }else{
-            return "Error. " . var_dump(rquest()->all());
+            return "Error. " . var_dump(request()->all());
         }
     }
 }

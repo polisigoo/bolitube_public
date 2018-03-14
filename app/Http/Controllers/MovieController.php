@@ -10,8 +10,6 @@ class MovieController extends Controller
     public function watchMovie($movieuri){
         $movie = $movieuri;
 
-        dd($movie);
-
-        return view('watchMovie');
+        return view('watchMovie')->with(compact('movie'));
     }
 }

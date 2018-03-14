@@ -44,7 +44,11 @@ Route::get('/series/', 'PageController@serieList')->name('series.list');
 Route::get('/series/{serieuri}', 'SerieController@episodeslist')->name('episodios.list');
 
 /** Movie */
-Route::get('/movie/{movieuri}', 'MovieController@watchMovie')->name('movie.watch');
+Route::get('/movies/{movieuri}', 'MovieController@watchMovie')->name('movie.watch');
+
+Route::get('/movies/{movieuri}/edit', 'MovieController@editMovie')->name('movie.edit');
+
+Route::get('/movies/', 'MovieController@listMovie')->name('movie.list');
 
 
 /** RELATED WITH VIDEOS */
