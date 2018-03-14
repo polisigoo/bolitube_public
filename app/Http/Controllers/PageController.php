@@ -7,6 +7,7 @@ use App\Library\GernerateUniqueID;
 use App\Library\MyHelper;
 use App\Models\Episodio;
 use App\Models\Serie;
+use App\Movie;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,16 +49,17 @@ class PageController extends Controller
     }
 
     public function index(){
+
         /*$videos = DB::table('videos')->get(); //DB:table porque se puede mixear con las coleciones
         $videos = $videos->shuffle();*/
 
-        $videos = Video::paginate(12);
+        $series = Serie::paginate(12);
 
-        $categorias = Video::select('categoria')->distinct()->get();
+        $generos = Serie::select('generos')->distinct()->get();
 
-        $ultimostres = DB::table('videos')->latest()->take(3)->get(); //latest tiene en cuenta el created_at
+        $ultimostres = Serie::latest()->take(20)->get(); //latest tiene en cuenta el created_at
 
-        return view('index')->with(compact('videos', 'categorias','ultimostres'));
+        return view('index')->with(compact('series', 'generos','ultimostres'));
     }
 
     public function uploads(){
@@ -421,5 +423,90 @@ class PageController extends Controller
             return "Cambios guardados";
         else
             return "Error al guardar los cambios";
+    }
+
+    public function createMovie(){
+
+        return view("crearpelicula");
+    }
+
+    public function searchMovie(Request $request){
+        $name = str_replace(" ", '%20',$request->input('title'));
+
+        if ($estreno = !empty($request->input('fecha'))){
+            $json = file_get_contents("https://api.themoviedb.org/3/search/movie?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1&include_adult=true&year={$estreno}");
+
+            $obj = json_decode($json);
+            $id = $obj->results[0]->id;
+        }else{
+            $json = file_get_contents("https://api.themoviedb.org/3/search/movie?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1&include_adult=true");
+            $obj = json_decode($json);
+            $id = $obj->results[0]->id;
+            //$json = $obj->results[0];
+            //$json = json_encode($json);
+        }
+
+        $json = file_get_contents("https://api.themoviedb.org/3/movie/$id?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es");
+
+        return $json;
+    }
+
+    public function saveMovie(Request $request){
+        request()->validate([
+            't_original' => 'required',
+            'titulo_t' => 'required',
+            'resumen' => 'required',
+            'generos' => 'required',
+            'video_url' => 'required',
+            'id' => 'required',
+            'estreno' => '',
+            'duracion' => ''
+        ],[
+            't_original.required' => 'Es necesario especificar un t_original',
+            'titulo_t.required' => 'Es necesario completar el campo titulo_t',
+            'resumen.required' => 'Es necesario especificar un resumen',
+            'generos.required' => 'Es necesario completar el campo generos',
+            'id.required' => 'Es necesario completar el campo id',
+            'video_url.required' => 'Es necesario completar el campo video_url'
+        ]);
+
+        $helper = new MyHelper();
+
+        $myk = new MyHelper();
+        $key = $myk->generateKeywordsMovie(e($request->input('titulo_t')));
+
+        $estreno = e($request->input('estreno'));
+        if (isset($estreno)){
+            $fecha = substr($estreno, 0,4);
+            $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(e($request->input('t_original')))));
+            $uri .= "-" . $fecha;
+        }else{
+            $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(e($request->input('t_original')))));
+        }
+
+
+        if (empty(Movie::select('id_db')->where('id_db', e($request->input('id')))->first())) {
+            $pelicula = new Movie();
+            $pelicula->titulo = e($request->input('titulo_t'));
+            $pelicula->titulo_original = e($request->input('t_original'));
+            $pelicula->video_url = e($request->input('video_url'));
+            $pelicula->fecha_estreno = $estreno;
+            $pelicula->duracion = e($request->input('duracion'));
+            $pelicula->keywords = $key;
+            $pelicula->generos = e($request->input('generos'));
+            $pelicula->poster_path = e($request->input('post_path'));
+            $pelicula->fondo_path = e($request->input('fondo_path'));
+            $pelicula->id_db = e($request->input('id'));
+            $pelicula->resumen = e($request->input('resumen'));
+            $pelicula->uri = $uri;
+            if ($pelicula->save()) {
+                return "<h1 style='color: #31e73d; text-align: center'>Serie añadida correctamente/h1><a href='" . url('create/movie') . "'>Volver</a>";
+            }
+            else{
+                return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar la serie</h1>";
+            }
+        }else{
+            return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar la serie porque ya existe!</h1>";
+        }
     }
 }

@@ -27,7 +27,7 @@
                     <a class="dropdown-item" href="{{ route('create.serie') }}">Serie</a>
                     <a class="dropdown-item" href="{{ route('create.episodio') }}">Episodio</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Pelicula</a>
+                    <a class="dropdown-item" href="{{ route('create.movie') }}">Pelicula</a>
                 </div>
             </li>
         </ul>

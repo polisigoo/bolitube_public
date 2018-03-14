@@ -27,6 +27,19 @@ class MyHelper
         return $myk;
     }
 
+
+    /**
+     * @param string $seriename
+     * @param string $temporada
+     * @param string $episodionumber
+     * @return string $keywords
+     */
+    public function generateKeywordsMovie($moviename){
+        $string = "Ver .a. Online, ver gratis .a. online, ver pelicula .a. online, ver pelicula .a. online gratis, ver estreno .a. online, .a. online ver, Ver pelicula .a. Español Latino, ver .a. Latino Online, pelicula .a. Español Online, pelicula .a. Subtitulado, en Español, en Español Latino, en Latino, ver pelicula .a. online gratis, ver .a. hd gratis, ver .a. hd Online.";
+        $s = str_replace(".a.",$moviename,$string);
+        return $s;
+    }
+
     /**
      * @param $titulo_t
      * @param $temporada_n

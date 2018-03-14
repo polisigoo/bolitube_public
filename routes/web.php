@@ -43,7 +43,8 @@ Route::get('/series/', 'PageController@serieList')->name('series.list');
 //Lista de episodios
 Route::get('/series/{serieuri}', 'SerieController@episodeslist')->name('episodios.list');
 
-
+/** Movie */
+Route::get('/movie/{movieuri}', 'MovieController@watchMovie')->name('movie.watch');
 
 
 /** RELATED WITH VIDEOS */
@@ -73,6 +74,12 @@ Route::get('/create/serie', 'PageController@createSerie')->name('create.serie');
 
 //Formulario para crear serie
 Route::post('/create/serie', 'PageController@saveSerie');
+
+//Formulario para crear serie
+Route::get('/create/movie', 'PageController@createMovie')->name('create.movie');
+
+//Formulario para crear serie
+Route::post('/create/movie', 'PageController@saveMovie');
 
 
 
@@ -114,16 +121,21 @@ Route::get('/search', 'PageController@search')->name('search');
 //Search serie
 Route::post('/search/serie', 'PageController@searchSerie')->name('search.serie');
 
+//Search serie
+Route::post('/search/movie', 'PageController@searchMovie')->name('search.movie');
 
 //Search episodio
 Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.episodio');
 
 /** Others */
 Route::get('/test', function () {
-    $helper = new \App\Library\MyHelper();
-    $c = $helper->creadorEpisodiosPorTemporada(18347,10, 1);
+    $fecha = "2017-09-05";
+    $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower("it")));
 
-    dd($c);
+    $fecha = substr($fecha, 0,4);
+    $uri .= "-" . $fecha;
+
+    dd($uri);
 
     /*$myk = new \App\Library\MyHelper();
     $key = $myk->generateKeywords('Shameless', '2', '5');

@@ -17,14 +17,19 @@ class CreateMoviesTable extends Migration
             $table->increments('id');
             $table->string('titulo', '100');
             $table->string('titulo_original', '100')->nullable();
+            $table->longText('resumen')->nullable();
             $table->string('video_url', '100');
-            $table->string('director', '100');
-            $table->string('fecha_estreno', '50');
-            $table->string('duracion', '15');
+            $table->string('director', '100')->nullable();
+            $table->string('fecha_estreno', '50')->nullable();
+            $table->string('duracion', '15')->nullable();
             $table->string('keywords', '500');
             $table->string('generos', '200');
             $table->string('poster_path', '100');
+            $table->string('fondo_path', '150')->nullable();
             $table->string('pais_origen', '50')->nullable();
+            $table->integer('voto_imdb')->nullable();
+            $table->integer('id_db')->nullable();
+            $table->string('uri', '150');
             $table->timestamps();
         });
     }
