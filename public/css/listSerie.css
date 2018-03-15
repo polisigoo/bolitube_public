@@ -190,9 +190,9 @@ width: 20%;
     }
 
     .listas{
-    /* display: block; */
-    /* width: 90%; */
-    /* margin: 9px auto; */
+    display: block;
+    width: 10px;
+    margin: 0;
     /* background-color: aliceblue; */
     }
 
@@ -221,6 +221,19 @@ width: 20%;
     .listas .folder{
         /* margin-left: 12%; */
     }
+
+    .listas .cantidad{
+        display: none;
+    }
+
+    .listas .info p.overview{
+        font-size: 0.8em;
+        margin-top: 6px;
+    }
+
+    .listas .folder .imagen{
+    /* width: 90px; */
+    }
 }
 
 @media (min-width: 374px) and (max-width: 583px) {
@@ -231,7 +244,8 @@ width: 20%;
 
 @media screen and (max-width: 373px) {
     .listas .folder{
-        margin-left: 5%;
+        margin-left: -34px;
+        width: 312px;
     }
 }
 

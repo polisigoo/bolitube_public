@@ -9,11 +9,16 @@ class SerieController extends Controller
 {
 
     public function serie($serieuri, $temporada, $episodio){
-        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada')
+        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada', 'episodio')
                     ->where('serie_id', $serieuri->id)
                     ->where('temporada', e($temporada))
                     ->where('episodio', e($episodio))
                     ->first();
+
+        $episodios = Episodio::where('temporada', e($temporada))
+            ->where('serie_id', $serieuri->id)
+            ->orderBy('episodio', 'asc')
+            ->get();
 
         if (empty($episode))
             abort(404);
@@ -48,7 +53,8 @@ class SerieController extends Controller
                             'keywords',
                             'anterior',
                             'siguiente',
-                            'serie'));
+                            'serie',
+                            'episodios'));
     }
 
     public function episodeslist($serieuri){

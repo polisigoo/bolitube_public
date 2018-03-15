@@ -52,7 +52,7 @@ Home @endsection
                         @endif
                     </div>
                     </div>
-                    <p class="overview">{{ substr($serie->descripcion,0,315) }}...</p>
+                    <p class="overview">{{ htmlspecialchars_decode(substr($serie->descripcion,0,315), ENT_QUOTES) }}...</p>
                 </div>
             </ol>
         @endforeach

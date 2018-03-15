@@ -227,6 +227,7 @@ span.as_quality{
 }
 
 h1.inf_episodio{
+    font-family: "PT Sans",Roboto, Arial, sans-serif;
     font-size: 30px;
 }
 
@@ -388,6 +389,7 @@ h1.inf_episodio{
 .tags{
     margin-left: -5%;
     font-size: 1em;
+    padding-top: 35px;
     color: #4ea7c3;
     max-width: 90%;
 }
@@ -410,7 +412,10 @@ h1.inf_episodio{
 #info .edit{
     background-color: #07789a;
     padding: 7px;
-    float: right;
+    position:  absolute;
+    top: 0;
+    left: 0;
+    /* float: right; */
 }
 
 #info .edit span{
@@ -438,6 +443,10 @@ h1.inf_episodio{
 }
 
 .modo-cine button i{}
+
+#info .inf_descripcion{
+    font-family: "PT Sans",Roboto, Arial, sans-serif;
+}
 
 @media screen and (max-width: 1000px) {
 
@@ -496,5 +505,9 @@ h1.inf_episodio{
 
     #addDelayButton, #removeDelayButton{
     display: none;
+    }
+
+    .pag_episodes .ep_item span{
+        display: none;
     }
 }

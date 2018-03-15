@@ -8,6 +8,8 @@ Home @endsection
     <link href="{{ asset("css/main.css") }}" rel="stylesheet">
     <link href="{{ asset("css/white/watchWhite.css") }}" rel="stylesheet">
     <link href="{{ asset("css/fonts/style.css") }}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 @endsection
 
 
@@ -83,7 +85,7 @@ Home @endsection
             <div class="edit"><a href="{{ route('episode.edit',[
                                             'seriuri' => $serie->uri,
                                             'temporada' => $episode->temporada,
-                                            'episodio' => $siguiente->episodio]) }}"><span class="icon-pencil"></span>Editar</a></div>
+                                            'episodio' => $episode->episodio]) }}"><span class="icon-pencil"></span>Editar</a></div>
 
             <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
 
@@ -109,29 +111,27 @@ Home @endsection
                         <div class="se-a" style="display:block">
                             <ul class="videos">
                                     <?php $ab = 1; ?>
-                                   {{--@foreach($related as $rel)--}}
-                                    {{--<li class="mark-{{ $ab }}">--}}
-                                        {{--<div class="imagen">--}}
-                                            {{--<a href="#">--}}
-                                            {{--@if(empty($rel->image_name))--}}
-                                                {{--<img src="{{ asset('css/img/question.png') }}" alt="{{ $title }}" id="imagen">--}}
-                                            {{--@else--}}
-                                                {{--@if(!file_exists(storage_path() . '/app/public/images/' . $categoria .'/' . $carpeta . '/hq'. $rel->image_name))--}}
-                                                    {{--<img src="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/'.$rel->image_name) }}" alt="{{ $title }}" id="imagen">--}}
-                                                {{--@else--}}
-                                                    {{--<img src="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/hq'.$rel->image_name) }}" alt="{{ $title }}" id="imagen">--}}
-                                                {{--@endif--}}
-                                            {{--@endif--}}
-                                            {{--</a>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="numerando">1x{{ $ab }}</div>--}}
-                                        {{--<div class="episodiotitle">--}}
-                                            {{--<a href="{{ route('video.watch', ['videoid' => $rel->unique_id]) }}">{{ $rel->titulo }}</a>--}}
-                                            {{--<span class="date">{{ date("F d, Y", strtotime($rel->created_at)) }}</span>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-                                       {{--<?php $ab++;  ?>--}}
-                                   {{--@endforeach--}}
+                                   @foreach($episodios as $episodio)
+                                    <li class="mark-{{ $ab }}">
+                                        <div class="imagen">
+                                            <a href="#">
+                                            @if(empty($episodio->image_path))
+                                                <img src="{{ asset('css/img/question.png') }}" alt="{{ $episodio->titulo }}" id="imagen">
+                                            @else
+                                                    <img src="{{ $episodio->image_path }}" alt="{{ $episodio->titulo }}" id="imagen">
+                                            @endif
+                                            </a>
+                                        </div>
+                                        <div class="numerando">{{ request()->temporada }}x{{ $ab }}</div>
+                                        <div class="episodiotitle">
+                                            <a href="{{ route('serie.watch', ["serieuri"  => request()->serieuri,
+                                                                            "temporada" => request()->temporada,
+                                                                            "esposidio" => $ab])  }}">{{ $episodio->titulo }}</a>
+                                            <span class="date">{{ date("F d, Y", strtotime($episodio->fecha_estreno)) }}</span>
+                                        </div>
+                                    </li>
+                                       <?php $ab++;  ?>
+                                   @endforeach
 
                             </ul>
                         </div>
@@ -261,6 +261,9 @@ Home @endsection
                     c = false;
                 }
             });
+
+
+            $('.mark-{{request()->episodio}}').css('background-color','#cacaca');
 
             @if(session()->get('c-mode') === "on")
             $('#mod-cine').click();
