@@ -8,8 +8,6 @@
 
 4. Se podria agregar algunos filtros mas como por año o por mes.
 
-6. Hacer automatico el agregado de episodios. luego se les agrega
-url
 ## Prioridad
 
 - Dejar editar si al usuario le pertenece ese video. (Punto 2)
@@ -18,5 +16,7 @@ url
 - **VALIDACION** de que el episodio no exista, si existe usar update
 - Guardar los links de las imagenes en el js y cuando se haga click
 en  la temporada que se le cambie el src. gl.
+
+- Poner cada categoria en una collection y dps hacerle un unique
 
 **...**

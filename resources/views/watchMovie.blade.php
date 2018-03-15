@@ -98,22 +98,20 @@ Home @endsection
         <div class="categorias">
             <nav class="categ">
                 <h2>Categorias</h2>
-                <i class="cat_carpetas">Carpetas</i>
                 <ul class="categ scrolling mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;">
                     <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 282px; overflow: auto">
                         <div id="mCSB_2_container" class="mCSB_container" style="position: relative; left: 0px;" dir="ltr">
-                            <?php $cat = "dvsdv";
-
-                            ?>
-                            {{--@foreach($lista as $list)--}}
-                                {{--@if($cat != $list->categoria)--}}
-
-                                {{--<li class="cat-item">--}}
-                                    {{--<a href="{{route('video.list.categoria', ['categoria' => $list->categoria]) }}">{{ $cat = $list->categoria }}</a>--}}
-                                    {{--<i>{{ $cant = DB::table('videos')->select('carpeta_season')->where('categoria', '=', $list->categoria)->count() }}</i>--}}
-                                {{--</li>--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
+                            <?php $g = array(); $var = "Abc";?>
+                            @foreach($generos as $genero)
+                                @if(preg_match("/[,]/", $genero->generos) === 1)
+                                    @if(!in_array($var, $g))
+                                        <li class="categ"><a href="{{'Ruta a generos'}}">{{ $var = strstr($genero->generos, ",", true) }}</a></li>
+                                    @endif
+                                @else
+                                    <li class="categ"><a href="{{'Ruta a generos'}}">{{ $var = $genero->generos }}</a></li>
+                                @endif
+                                <?php $g[] = $var; ?>
+                            @endforeach
                         </div>
                     </div>
                 </ul>
@@ -166,11 +164,11 @@ Home @endsection
             $('#TituloDePagina').text('{{ $movie->titulo }}');
             $('#mod-cine').click(function () {
                 if(!c){
-                    $('#my-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
+                    $('.playerVideo').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
 
                     $('#s-bar').css({
                         'bottom' : '0',
-                        'height' : '700px'
+                        'height' : '526px'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-exit');
@@ -192,7 +190,7 @@ Home @endsection
 
                     c = true;
                 }else{
-                    $('#my-video').attr('style', 'width: 100% !important;height: 480px;');
+                    $('.playerVideo').attr('style', 'width: 100% !important;height: 480px;');
                     $('#s-bar').css({
                         'bottom' : '0',
                         'height' : '100%'

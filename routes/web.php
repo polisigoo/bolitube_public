@@ -48,7 +48,7 @@ Route::get('/movies/{movieuri}', 'MovieController@watchMovie')->name('movie.watc
 
 Route::get('/movies/{movieuri}/edit', 'MovieController@editMovie')->name('movie.edit');
 
-Route::get('/movies/', 'MovieController@listMovie')->name('movie.list');
+Route::get('/movies/', 'MovieController@movielist')->name('movie.list');
 
 
 /** RELATED WITH VIDEOS */
@@ -133,13 +133,12 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
-    $fecha = "2017-09-05";
-    $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower("it")));
 
-    $fecha = substr($fecha, 0,4);
-    $uri .= "-" . $fecha;
+    $fecha = \Carbon\Carbon::parse('2008/01/19')->format('d/m/Y');
 
-    dd($uri);
+    $str = Carbon\Carbon::createFromFormat('d/m/Y', $fecha);
+
+    dd($str->toFormattedDateString());
 
     /*$myk = new \App\Library\MyHelper();
     $key = $myk->generateKeywords('Shameless', '2', '5');

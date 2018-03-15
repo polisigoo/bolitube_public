@@ -19,11 +19,11 @@ class PageController extends Controller
 {
 
     public function serielist(){
-
-        $series = Serie::all();
+        $series = Serie::paginate(20);
 
         return view('list')->with(compact('series'));
     }
+
 
     public function listCategoria($categoria){
         $carpetas = DB::table('videos')->select('carpeta_season')
