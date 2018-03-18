@@ -248,14 +248,18 @@ ul.video li .date{
         margin: 5px auto;
     }
 
+    .info .resumen{
+}
+
     .video .title{
         width: calc(100% - 10px);
         text-align:  left;
-        font-size: 0.89em;
+        font-size: 0.19em;
+        font-weight: 100;
         text-overflow: ellipsis;
         overflow:  hidden;
-        top: 43%;
-        padding-left: 4px;
+        top: 61%;
+        padding-left: 1px;
         white-space:  nowrap;
         background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
         background-image: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.68));
@@ -276,5 +280,13 @@ ul.video li .date{
     .video .imagen img{
         width: 100% !important;
         margin-left: 0 !important;
+    }
+    
+    .video .overview{
+        display: none;
+    }
+
+    .video .date{
+        display: none !important;
     }
 }

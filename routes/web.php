@@ -133,7 +133,20 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
-    $arrContextOptions=array(
+    $a = "Hola";
+
+    $key = encrypt($a);
+
+    echo $key . "<br>";
+
+    try {
+        //echo $decrypted = decrypt($key);
+    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
+        //
+    }
+
+    dd();
+    /*$arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
             "verify_peer_name"=>false,
@@ -144,7 +157,7 @@ Route::get('/test', function () {
     $obj = json_decode($json);
 
 
-    dd($obj);
+    dd($obj);*/
 });
 
 Route::post('/multfunc', function (){
@@ -164,6 +177,14 @@ Route::post('/getopt/{select}', "PageController@getopt");
 Route::get('/formulario', function (){
     return view('new');
 });
+
+
+//Player
+Route::get('/player', 'PageController@player')->name('player');
+
+//embed
+Route::get('/embed/{server}/{key}', 'PageController@embed')->name('embed');
+
 
 Auth::routes();
 

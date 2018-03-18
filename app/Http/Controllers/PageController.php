@@ -515,4 +515,46 @@ class PageController extends Controller
             return "<h1 style='color: red;  text-align: center'>Error! No se pudo agregar la serie porque ya existe!</h1>";
         }
     }
+
+    public function player(Request $request){
+        $epi = Episodio::where('id', e($request->id))->first();
+
+        $opciones = array();
+
+        foreach (explode(",", $epi->video_url) as $opcion){
+            if(preg_match("/[google]/", $opcion)){
+                $name = 'google';
+            }elseif (preg_match("/[openload]/", $opcion)){
+                $name = 'openload';
+            }elseif (preg_match("/[streamago]/", $opcion)){
+                $name = 'streamago';
+            }elseif (preg_match("/[rapidvideo]/", $opcion)){
+                $name = 'rapidvideo';
+            }
+
+            array_push($opciones, $opcion);
+        }
+
+        return view('player')->with(compact('opciones'));
+    }
+
+    public function embed($servidor, $key){
+        if ($key === "cDRUUlZ5NSs2OWh6cW5JaVdKcTQranQwUXAyZEp0Q1VEQ0VBUG51TzN6Z0MyTG5pN3VNR2FqRlo4N2tSa0NhRlp5WTNUeVh6NWdzcXM2S1lxOFFnS3NNNzFpY1FDNkQxVnhaOGdtTmVLYU09"){
+            echo '<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>';
+            echo "<style type='text/css'>
+#player #ap{width:296px;height:250px;position:absolute;top:46%;left:50%;margin-top:-150px;margin-left:-150px;z-index:99999}
+</style>";
+            echo "<script type='text/javascript'>
+eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return\'\\w+\'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp(\'\\b\'+e(c)+\'\\b\',\'g\'),k[c])}}return p}(\'(3(){(3 a(){8{(3 b(2){7((\\'\\'+(2/2)).6!==1||2%5===0){(3(){}).9(\\'4\\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();\',17,17,\'||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout\'.split(\'|\'),0,{}))
+</script>";
+            echo "<script type='text/javascript'>eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('d.c(\"<6 e=\'b:0;g: 0;3:1%;5: 1%; h: a; 7: 9\' 8=\'//f.n.4/p/q.i.4/r\\\' s=\'o\' j=\'0\' 5=\'1%\' 3=\'1%\' k=\'2\' l=\'2\' m=\'2\'></6>\");',29,29,'|100|true|width|com|height|iframe|border|src|none|absolute|top|write|document|style|streamango|left|position|google|frameborder|allowfullscreen|webkitallowfullscreen|mozallowfullscreen|poseidonhd|no|stream|drive|cDRUUlZ5NSs2OWh6cW5JaVdKcTQranQwUXAyZEp0Q1VEQ0VBUG51TzN6Z0MyTG5pN3VNR2FqRlo4N2tSa0NhRlp5WTNUeVh6NWdzcXM2S1lxOFFnS3NNNzFpY1FDNkQxVnhaOGdtTmVLYU09|scrolling'.split('|'),0,{}))
+</script>";
+
+
+            echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
+            echo "<iframe src='https://drive.google.com/file/d/1bjMUepvz_e7b5aMbCQpuOl_dMytbxujj/preview' width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
+
+
+          }
+    }
 }
