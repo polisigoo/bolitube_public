@@ -133,24 +133,18 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+    );
 
-    $fecha = \Carbon\Carbon::parse('2008/01/19')->format('d/m/Y');
-
-    $str = Carbon\Carbon::createFromFormat('d/m/Y', $fecha);
-
-    dd($str->toFormattedDateString());
-
-    /*$myk = new \App\Library\MyHelper();
-    $key = $myk->generateKeywords('Shameless', '2', '5');
-
-    $keywords = implode(",", $key);
-
-    $json = file_get_contents('https://api.themoviedb.org/3/tv/60573?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es');
+    $json = file_get_contents('https://api.themoviedb.org/3/tv/60573?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es', false, stream_context_create($arrContextOptions));
     $obj = json_decode($json);
 
-    $obj->keywords = $keywords;
 
-    dd($obj);*/
+    dd($obj);
 });
 
 Route::post('/multfunc', function (){

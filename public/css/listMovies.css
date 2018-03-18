@@ -8,6 +8,7 @@ img{
 }
 
 .listas{
+    padding-bottom: 25px;
     font-family: "PT Sans", sans-serif;
     display:  flex;
     width: 1050px;
@@ -183,6 +184,11 @@ width: 20%;
     font-size: 1.2rem;
 }
 
+.videos h2{
+    border-left: 5px solid #221bb1;
+    padding-left: 15px;
+}
+
 @media screen and (max-width: 1000px) {
     .listas li h2{
         font-size: 1em;
@@ -190,10 +196,14 @@ width: 20%;
     }
 
     .listas{
-    /* display: block; */
-    /* width: 90%; */
-    /* margin: 9px auto; */
+    display: block;
+    width: 10px;
+    margin: 0;
     /* background-color: aliceblue; */
+    }
+
+    .listas .cantidad{
+        display: none;
     }
 
     .btn-primary{
@@ -221,6 +231,11 @@ width: 20%;
     .listas .folder{
         /* margin-left: 12%; */
     }
+
+    .listas .info p.overview{
+        font-size: 0.8em;
+        margin-top: 6px;
+    }
 }
 
 @media (min-width: 374px) and (max-width: 583px) {
@@ -231,7 +246,8 @@ width: 20%;
 
 @media screen and (max-width: 373px) {
     .listas .folder{
-        margin-left: 5%;
+        margin-left: -34px;
+        width: 312px;
     }
 }
 

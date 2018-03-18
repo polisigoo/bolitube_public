@@ -211,21 +211,27 @@ class PageController extends Controller
     }
 
     public function searchSerie(Request $request){
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
         $name = str_replace(" ", '%20',$request->input('title'));
 
         if ($p_ep = !empty($request->input('fecha'))){
-            $json = file_get_contents("https://api.themoviedb.org/3/search/tv?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1&first_air_date_year={$p_ep}");
+            $json = file_get_contents("https://api.themoviedb.org/3/search/tv?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1&first_air_date_year={$p_ep}",false,stream_context_create($arrContextOptions));
             $obj = json_decode($json);
             $id = $obj->results[0]->id;
         }else{
-            $json = file_get_contents("https://api.themoviedb.org/3/search/tv?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1");
+            $json = file_get_contents("https://api.themoviedb.org/3/search/tv?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&query={$name}&page=1",false,stream_context_create($arrContextOptions));
             $obj = json_decode($json);
             $id = $obj->results[0]->id;
             //$json = $obj->results[0];
             //$json = json_encode($json);
         }
 
-        $json = file_get_contents("https://api.themoviedb.org/3/tv/{$id}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es");
+        $json = file_get_contents("https://api.themoviedb.org/3/tv/{$id}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es",false,stream_context_create($arrContextOptions));
 
         return $json;
     }

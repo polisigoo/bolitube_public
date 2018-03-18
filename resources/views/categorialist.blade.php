@@ -49,11 +49,11 @@ Home @endsection
 
             <button class="btn btn-link" data-toggle="collapse" data-target="#season{{$i}}" aria-expanded="true" aria-controls="collapseOne">Temporada {{ $i }}
             <p>{{ $str->toFormattedDateString() }}</p></button>
-            @if($i === 1)
-            <div class="episodes collapse show" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">
-            @else
+            {{--@if($i === 1)--}}
+            {{--<div class="episodes collapse show" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">--}}
+            {{--@else--}}
             <div class="episodes collapse" id="season{{$i}}" aria-labelledby="headingOne" data-parent="#accordion">
-            @endif
+            {{--@endif--}}
                 <div class="card-body">
             @foreach($episodios as $episodio)
                 <ul class="video">
@@ -66,7 +66,7 @@ Home @endsection
                                @if($episodio->image_path === 'https://image.tmdb.org/t/p/w500')
                                    <img src="{{ asset('css/img/missed_image.png') }}" alt="{{ $episodio->titulo }}" id="imagen" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;">
                                @else
-                               <img src="{{ str_replace('https://image.tmdb.org/t/p/w500/', 'https://image.tmdb.org/t/p/w200/', $episodio->image_path) }}" alt="{{ $episodio->titulo }}" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;" id="imagen">
+                               <img data-src="{{ str_replace('https://image.tmdb.org/t/p/w500/', 'https://image.tmdb.org/t/p/w200/', $episodio->image_path) }}" src="" alt="{{ $episodio->titulo }}" style="margin-top: -3px; width: 225px;height: 125px;border-radius: .25rem;" id="imagen">
                                @endif
                            </a>
                        </div>
@@ -95,6 +95,24 @@ Home @endsection
 @endsection
 @section('afterjquery')
     <script>
+        $(document).ready(function() {
+            $('.btn-link').click(function () {
+                $(this).parent()
+                    .find('.episodes').children()
+                    .find('ul.video')
+                    .find('img').each(function () {
+                    $(this).attr("src", $(this).data("src"));
+                });
+            });
+
+            if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+                var r = $('p.resumen').html();
+                r = r.substring(0, 345);
+                $('p.resumen').html(r + "...");
+            }
+        });
+
+
         $('#a-list').addClass('active');
     </script>
 @endsection

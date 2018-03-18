@@ -39,25 +39,25 @@ Home @endsection
             @endforeach
         </ul>
     </div>
+</div>
+
+<div id="single">
     <div class="s-slider">
         <h1 class="semititulo" style="margin-bottom: -5px;">Series recientes</h1>
         <div class="slick-sli">
             @foreach($ultimostres as $ultimo)
                 <div>
-                 @if(empty($ultimo->poster_path))
-                      <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">
-                @else
-                <a href="{{ route('episodios.list', ['serieuri' => $ultimo->uri]) }}">
-                  <img src="{{ $ultimo->poster_path }}" alt="{{ $ultimo->show_name }}" style="width: 200px;height: 193px;">
-                </a>
-                @endif
+                    @if(empty($ultimo->poster_path))
+                        <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">
+                    @else
+                        <a href="{{ route('episodios.list', ['serieuri' => $ultimo->uri]) }}">
+                            <img src="{{ $ultimo->poster_path }}" alt="{{ $ultimo->show_name }}" style="width: 200px;height: 193px;">
+                        </a>
+                    @endif
                 </div>
             @endforeach
         </div>
     </div>
-</div>
-
-<div id="single">
     <div class="videos">
         <h1 class="semititulo" style="margin-bottom: -5px;">Todos los videos</h1>
        @foreach($series as $serie)

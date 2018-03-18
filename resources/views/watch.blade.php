@@ -213,11 +213,11 @@ Home @endsection
             $('#TituloDePagina').text('{{ $episode->titulo }}' + ' - ' +'{{ $serie->show_name }}');
             $('#mod-cine').click(function () {
                 if(!c){
-                    $('#my-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
+                    $('.playerVideo').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
 
                     $('#s-bar').css({
                         'bottom' : '0',
-                        'height' : '700px'
+                        'height' : 'calc(64% + 326px)'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-exit');
@@ -239,7 +239,7 @@ Home @endsection
 
                     c = true;
                 }else{
-                    $('#my-video').attr('style', 'width: 100% !important;height: 480px;');
+                    $('.playerVideo').attr('style', 'width: 100% !important;height: 480px;');
                     $('#s-bar').css({
                         'bottom' : '0',
                         'height' : '100%'
@@ -263,7 +263,7 @@ Home @endsection
             });
 
 
-            $('.mark-{{request()->episodio}}').css('background-color','#cacaca');
+            $('.mark-{{request()->episodio}}').css('opacity','0.7');
 
             @if(session()->get('c-mode') === "on")
             $('#mod-cine').click();
