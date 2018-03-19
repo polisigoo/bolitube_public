@@ -45,7 +45,7 @@ Home @endsection
                 <div class="info">
                     <div class="wrapper">
                         <div class="title">
-                            <a href="{{ route('movie.watch', ['movieuri' => $movie->uri]) }}">{{ $movie->titulo ." (".$fecha . ")" }}</a>
+                            <a href="{{ route('movie.watch', ['movieuri' => $movie->uri]) }}">{{ htmlspecialchars_decode($movie->titulo ." (".$fecha . ")") }}</a>
                             @if(!empty($movie->fecha_estreno))
                                 <?php $fecha = \Carbon\Carbon::parse($movie->fecha_estreno)->format('d/m/Y');
                                 $str = Carbon\Carbon::createFromFormat('d/m/Y', $fecha);?>

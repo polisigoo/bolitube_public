@@ -44,7 +44,7 @@ Home @endsection
                 <div class="info">
                     <div class="wrapper">
                     <div class="title">
-                        <a href="{{ route('episodios.list', ['serieuri' => $serie->uri]) }}">{{ $serie->show_name }}</a>
+                        <a href="{{ route('episodios.list', ['serieuri' => $serie->uri]) }}">{!! htmlspecialchars_decode($serie->show_name) !!}</a>
                         @if(!empty($serie->primera_transmision))
                         <?php $fecha = \Carbon\Carbon::parse($serie->primera_transmision)->format('d/m/Y');
                               $str = Carbon\Carbon::createFromFormat('d/m/Y', $fecha);?>

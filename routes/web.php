@@ -46,7 +46,11 @@ Route::get('/series/{serieuri}', 'SerieController@episodeslist')->name('episodio
 /** Movie */
 Route::get('/movies/{movieuri}', 'MovieController@watchMovie')->name('movie.watch');
 
+//return view to edit
 Route::get('/movies/{movieuri}/edit', 'MovieController@editMovie')->name('movie.edit');
+
+//save edited data
+Route::post('/movies/{movieuri}/save', 'MovieController@editSaveMovie')->name('edit.movie.save');
 
 Route::get('/movies/', 'MovieController@movielist')->name('movie.list');
 
@@ -133,19 +137,31 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
-    $a = "Hola";
+
+    dd(empty(\App\Movie::where('video_url', 'LIKE' ,'%%')->first()));
+
+   /*$a = ['a' => 'b', 'c' => 'd'];
+
+    $a['e'] = 'f';
+
+
+    dd($a['e']);*/
+   /* $a = "https://drive.google.com/file/d/12bJ1jqzd0HOFEOsPYhPT0TJ96lZav4do/preview, https://openload.co/embed/lF0qWZpokVU/";
 
     $key = encrypt($a);
 
-    echo $key . "<br>";
+    //echo $key . "<br>";
+*/
+    /*try {
+        $videos = explode(",", \App\Movie::select('video_url')->where('id', 1)->first()->video_url);
 
-    try {
-        //echo $decrypted = decrypt($key);
+        foreach ($videos as $video) {
+            echo $decrypted = decrypt($video);
+        }
     } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
         //
-    }
+    }*/
 
-    dd();
     /*$arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,

@@ -20,7 +20,7 @@ Home @endsection
     <div class="content">
         <div class="playerVideo">
             @if($movie->video_url !== "Undefined")
-            <iframe src="{{ $movie->video_url }}" width="100%" height="480px" id="g-video"></iframe>
+            <iframe src="{!! url('/player?id=') . $movie->id . '&m=t'!!}" width="100%" height="480px" id="g-video"></iframe>
             @else
                 <div style="width: 100%; height: 480px">
                     <p style="color: red">No se encontro un link valido.</p>
@@ -35,7 +35,7 @@ Home @endsection
             <h1 class="inf_episodio">{{ $movie->titulo }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
 
             <div class="edit"><a href="{{ route('movie.watch',[
-                                            'movieuri' => $movie->uri]) }}"><span class="icon-pencil"></span>Editar</a></div>
+                                            'movieuri' => $movie->uri]) . '/edit' }}"><span class="icon-pencil"></span>Editar</a></div>
 
             <div class="overview">
                 <h2>Sinopsis</h2>

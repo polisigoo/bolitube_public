@@ -21,8 +21,8 @@ Home @endsection
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
-            @if($episode->video_url == "Undefined")
-            <iframe src="{{ url('/player?id=5') }}" width="100%" height="480px" id="g-video"></iframe>
+            @if($episode->video_url !== "Undefined")
+            <iframe src="{{ url('/player?id=') . $episode->id }}" width="100%" height="480px" id="g-video"></iframe>
             @else
                 <div style="width: 100%; height: 480px">
                     <p style="color: red">No se encontro un link valido.</p>

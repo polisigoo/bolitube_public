@@ -94,26 +94,35 @@
                 <ul class="menuPlayer">
                     <li class="bar"></li>
                     @foreach($opciones as $opcion)
-                        @if(preg_match("/\b(\w*google\w*)\b/", $opcion))
-                        <li class="option" style="background-color: hsl(11, 43%, 55%);" title="Ver en Google" data-player="Google" data-playerid="http://localhost:8080/bolitube_public/public/embed/google/cDRUUlZ5NSs2OWh6cW5JaVdKcTQranQwUXAyZEp0Q1VEQ0VBUG51TzN6Z0MyTG5pN3VNR2FqRlo4N2tSa0NhRlp5WTNUeVh6NWdzcXM2S1lxOFFnS3NNNzFpY1FDNkQxVnhaOGdtTmVLYU09">
+                        <?php try{ $opurl = decrypt($opcion); } catch (Illuminate\Contracts\Encryption\DecryptException $e) { }; ?>
+                        @if(empty($opurl))
+                            <?php dd("No hay servidores disponibles") ?>
+                        @endif
+                        @if(!empty(request()->m))
+                            <?php $mo = '/?m=t' ?>
+                            @else
+                            <?php $mo = '' ?>
+                        @endif
+                        @if(preg_match("/\b(\w*google\w*)\b/", $opurl))
+                        <li class="option" style="background-color: hsl(11, 43%, 55%);" title="Ver en Google" data-player="Google" data-playerid="{!! url('/embed/google/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/gdrive.png') }}" /></div>
                             </div>
                         </li>
-                        @elseif (preg_match("/\b(\w*openload\w*)\b/", $opcion))
-                        <li class="option" style="background-color: hsl(263, 43%, 55%);" title="Ver en Openload" data-player="Openload" data-playerid={!! $opcion !!}>
+                        @elseif (preg_match("/\b(\w*openload\w*)\b/", $opurl))
+                        <li class="option" style="background-color: hsl(263, 43%, 55%);" title="Ver en Openload" data-player="Openload" data-playerid={!! url('/embed/openload/'. $opcion . $mo) !!}>
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/openload.png') }}" /></div>
                             </div>
                         </li>
-                        @elseif (preg_match("/\b(\w*streamago\w*)\b/", $opcion))
-                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Streamango" data-player="Streamango" data-playerid="//streamango.poseidonhd.com/embed/streamango.com/cklCWGZEbUMrTytaTkZESGpJbnFuWnFPUGtrUERDd29GUXVaRllEb21UQ2pGdHh0bE1NYVY5Q0RzQnl2UXdDeQ==">
+                        @elseif (preg_match("/\b(\w*streamago\w*)\b/", $opurl))
+                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Streamango" data-player="Streamango" data-playerid="{!! url('/embed/streamago/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/streamango.png') }}" /></div>
                             </div>
                         </li>
-                        @elseif (preg_match("/\b(\w*rapidvideo\w*)\b/", $opcion))
-                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Rapidvideo" data-player="Rapidvideo" data-playerid="//streamango.poseidonhd.com/embed/streamango.com/cklCWGZEbUMrTytaTkZESGpJbnFuWnFPUGtrUERDd29GUXVaRllEb21UQ2pGdHh0bE1NYVY5Q0RzQnl2UXdDeQ==">
+                        @elseif (preg_match("/\b(\w*rapidvideo\w*)\b/", $opurl))
+                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Rapidvideo" data-player="Rapidvideo" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/rapidvideo.png') }}" /></div>
                             </div>

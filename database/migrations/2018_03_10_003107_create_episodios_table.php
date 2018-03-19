@@ -20,7 +20,7 @@ class CreateEpisodiosTable extends Migration
             $table->integer('episodio');
             $table->longText('resumen', '900')->nullable();
             $table->string('url', '100')->nullable();
-            $table->string('video_url', '500');
+            $table->longText('video_url');
             $table->string('keywords', '500');
             $table->string('fecha_estreno', '50');
             $table->string('image_path', '200')->nullable();

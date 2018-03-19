@@ -24,6 +24,7 @@ Home @endsection
     <div class="live-search">
 
     </div>
+
     <div class="dcategorias">
         <ul id="categs">
             <?php $g = array(); $var = "Abc";?>
@@ -42,6 +43,24 @@ Home @endsection
 </div>
 
 <div id="single">
+
+    <div class="s-slider">
+        <h1 class="semititulo" style="margin-bottom: -5px;">Películas más destacadas!</h1>
+        <div class="slick-sli">
+            @foreach($ultimostres as $ultimo)
+                <div>
+                    @if(empty($ultimo->poster_path))
+                        <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">
+                    @else
+                        <a href="{{ route('episodios.list', ['serieuri' => $ultimo->uri]) }}">
+                            <img src="{{ $ultimo->poster_path }}" alt="{{ $ultimo->show_name }}" style="width: 200px;height: 193px;">
+                        </a>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </div>
+
     <div class="s-slider">
         <h1 class="semititulo" style="margin-bottom: -5px;">Series recientes</h1>
         <div class="slick-sli">
@@ -58,6 +77,21 @@ Home @endsection
             @endforeach
         </div>
     </div>
+
+
+    <div class="tops">
+        <div class="top-movies">
+            <h2><a href="#" class="titulo">Top Movies</a></h2>
+        </div>
+        <div class="top-series">
+            <h2><a href="#" class="titulo">Top Series</a></h2>
+        </div>
+        <div class="top-episodios">
+            <h2><a href="#" class="titulo">Top Episodios</a></h2>
+        </div>
+    </div>
+
+
     <div class="videos">
         <h1 class="semititulo" style="margin-bottom: -5px;">Todos los videos</h1>
        @foreach($series as $serie)

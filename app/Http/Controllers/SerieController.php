@@ -9,7 +9,7 @@ class SerieController extends Controller
 {
 
     public function serie($serieuri, $temporada, $episodio){
-        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada', 'episodio')
+        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada', 'episodio', 'id')
                     ->where('serie_id', $serieuri->id)
                     ->where('temporada', e($temporada))
                     ->where('episodio', e($episodio))
@@ -123,7 +123,15 @@ class SerieController extends Controller
         }
 
         if (!empty(request()->video_url) && $ep->video_url != request()->video_url) {
-            $ep->video_url = e(request()->video_url);
+            $videos = array();
+
+            foreach (explode(",", request()->video_url) as $item) {
+                $key = encrypt($item);
+
+                array_push($videos, $key);
+            }
+
+            $ep->video_url = implode(",", $videos);
         }
 
         if ($ep->keywords != request()->keywords) {
