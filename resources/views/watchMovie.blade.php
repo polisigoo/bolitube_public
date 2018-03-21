@@ -28,6 +28,7 @@ Home @endsection
 
     <link rel="stylesheet" href="{{ asset("css/slick.css") }}">
     <link rel="stylesheet" href="{{ asset("css/slick-theme.css") }}">
+
 @endsection
 
 
@@ -64,17 +65,26 @@ Home @endsection
             </div>
 
             <div class="share">
-                <div class="twitter">
-                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $movie->titulo . substr($movie->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
-                        <i class="icon-twitter"></i> <b>Twitter</b>
-                    </a>
-                </div>
+                <ul>
+                    <li>
+                        <h3>Comparte la película!</h3>
+                    </li>
+                    <li>
+                        <div class="twitter">
+                            <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $movie->titulo . substr($movie->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
+                                <i class="icon-twitter"></i> <b>Twitter</b>
+                            </a>
+                        </div>
+                    </li>
 
-                <div class="facebook">
-                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
-                        <i class="icon-facebook"></i> <b>Facebook</b>
-                    </a>
-                </div>
+                    <li>
+                        <div class="facebook">
+                            <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
+                                <i class="icon-facebook"></i> <b>Facebook</b>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div class="tags">
@@ -106,10 +116,10 @@ Home @endsection
                         <?php $fecha = substr($ultimo->release_date, 0,4); ?>
                         <div>
                             @if(empty($ultimo->poster_path))
-                                <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->original_title }}">
+                                <img src="{{ asset('css/img/missed_image.png') }}" alt="{{ $ultimo->original_title }}" style="width: 200px;height: 193px;" title="{{ $ultimo->original_title }}">
                             @else
                                 <a href="{{ /*route('episodios.list', ['serieuri' => $ultimo->uri])*/ preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(str_replace(":" , "", $ultimo->original_title)))) . "-" .$fecha }}">
-                                    <img src="{{ "https://image.tmdb.org/t/p/w400".$ultimo->poster_path }}" alt="{{ $ultimo->original_title }}" style="width: 200px;height: 193px;">
+                                    <img src="{{ "https://image.tmdb.org/t/p/w400".$ultimo->poster_path }}" alt="{{ $ultimo->original_title }}" title="{{ $ultimo->original_title }}" style="width: 200px;height: 193px;">
                                 </a>
                             @endif
                         </div>
@@ -128,7 +138,7 @@ Home @endsection
             <nav class="categ">
                 <h2>Categorias</h2>
                 <ul class="categ scrolling mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;">
-                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 282px; overflow: auto">
+                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside"  tabindex="0" style="max-height: 282px; overflow: auto">
                         <div id="mCSB_2_container" class="mCSB_container" style="position: relative; left: 0px;" dir="ltr">
                             <?php $g = array(); $var = "Abc";?>
                             @foreach($generos as $genero)
@@ -150,7 +160,7 @@ Home @endsection
         <h2 class="as_content_title">Más vistos del mes</h2>
         <div id="rSB" class="rScrollBox">
             <div id="rContainer" class="rContainer" style="position: relative;top: 0;left: 0;">
-                <aside id="aside_content" class="asideContent">
+                <aside id="aside_content" class="asideContent scroll-black">
                     <div class="as_content">
                         @foreach($mas_vistos as $mov)
                         <article class="as_item_a" id="post-14">
@@ -177,8 +187,6 @@ Home @endsection
 @endsection
 
 @section('afterbootstrap')
-
-
     <script type="text/javascript" src="{{ asset("js/slick.min.js") }}"></script>
     <script>
             $('.slick-sli').slick({
@@ -197,8 +205,9 @@ Home @endsection
                     $('#g-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
 
                     $('#s-bar').css({
-                        'bottom' : '0',
-                        'height' : '526px'
+                        'bottom' : 'calc(9% + 53px)',
+                        'height' : 'auto'
+                        //'height' : 'calc(39% + 326px)'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-exit');
@@ -222,8 +231,8 @@ Home @endsection
                 }else{
                     $('#g-video').attr('style', 'width: 100% !important;height: 480px;');
                     $('#s-bar').css({
-                        'bottom' : '0',
-                        'height' : '100%'
+                        'bottom' : 'auto',
+                        'height' : 'auto'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-enter');

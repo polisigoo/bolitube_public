@@ -112,7 +112,6 @@ Home @endsection
             }
         });
 
-
         $('#a-list').addClass('active');
     </script>
 @endsection

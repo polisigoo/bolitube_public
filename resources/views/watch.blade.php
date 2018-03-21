@@ -49,7 +49,7 @@ Home @endsection
             @endif
 
             <div class="ep_item">
-                <a href="{{ url("series/{$serie->uri}/") }}">
+                <a href="{{ url("series/{$serie->uri}/")}}">
                     <i class="icon-menu2"></i>
                     <span>lista de episodios</span>
                 </a>
@@ -90,17 +90,26 @@ Home @endsection
             <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
 
             <div class="share">
-                <div class="twitter">
-                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $episode->titulo . substr($episode->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
-                        <i class="icon-twitter"></i> <b>Twitter</b>
-                    </a>
-                </div>
+                <ul>
+                    <li>
+                        <h3>Comparte la película!</h3>
+                    </li>
+                    <li>
+                        <div class="twitter">
+                            <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $episode->titulo . substr($episode->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
+                                <i class="icon-twitter"></i> <b>Twitter</b>
+                            </a>
+                        </div>
+                    </li>
 
-                <div class="facebook">
-                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
-                        <i class="icon-facebook"></i> <b>Facebook</b>
-                    </a>
-                </div>
+                    <li>
+                        <div class="facebook">
+                            <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
+                                <i class="icon-facebook"></i> <b>Facebook</b>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div class="tags">
@@ -129,8 +138,8 @@ Home @endsection
                                     <li class="mark-{{ $ab }}">
                                         <div class="imagen">
                                             <a href="#">
-                                            @if(empty($episodio->image_path))
-                                                <img src="{{ asset('css/img/question.png') }}" alt="{{ $episodio->titulo }}" id="imagen">
+                                            @if($episodio->image_path === "https://image.tmdb.org/t/p/w500")
+                                                <img src="{{ asset('css/img/missed_image.png') }}" alt="{{ $episodio->titulo }}" id="imagen">
                                             @else
                                                     <img src="{{ $episodio->image_path }}" alt="{{ $episodio->titulo }}" id="imagen">
                                             @endif
@@ -184,7 +193,7 @@ Home @endsection
         <h2 class="as_content_title">Más vistos del mes</h2>
         <div id="rSB" class="rScrollBox">
             <div id="rContainer" class="rContainer" style="position: relative;top: 0;left: 0;">
-                <aside id="aside_content" class="asideContent">
+                <aside id="aside_content" class="asideContent scroll-black">
                     <div class="as_content">
                         <article class="as_item_a" id="post-14">
                             <a href="/movies/la-ciudad-de-las-estrellas-la-la-land/">
@@ -230,8 +239,9 @@ Home @endsection
                     $('.playerVideo').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
 
                     $('#s-bar').css({
-                        'bottom' : '0',
-                        'height' : 'calc(64% + 326px)'
+                        'bottom' : 'calc(35% + 53px)',
+                        'height' : 'auto'
+                        //'height' : 'calc(39% + 326px)'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-exit');
@@ -255,8 +265,8 @@ Home @endsection
                 }else{
                     $('.playerVideo').attr('style', 'width: 100% !important;height: 480px;');
                     $('#s-bar').css({
-                        'bottom' : '0',
-                        'height' : '100%'
+                        'bottom' : 'auto',
+                        'height' : 'auto'
                     });
 
                     $('#c-ico').removeClass().addClass('icon-enter');

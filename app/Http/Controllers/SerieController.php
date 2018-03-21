@@ -9,19 +9,55 @@ class SerieController extends Controller
 {
 
     public function serie($serieuri, $temporada, $episodio){
-        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada', 'episodio', 'id')
+        $episode = Episodio::select('titulo', 'video_url', 'keywords', 'resumen', 'temporada', 'episodio', 'id', 'image_path', 'id_db')
                     ->where('serie_id', $serieuri->id)
                     ->where('temporada', e($temporada))
                     ->where('episodio', e($episodio))
                     ->first();
+
+        if (empty($episode))
+            abort(404);
+
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        //Check updates
+        if (rand(0, 100) < 10 && rand(0, 50) > 10) {
+            $json = file_get_contents("https://api.themoviedb.org/3/tv/{$serieuri->id_db}/season/{$temporada}/episode/{$episodio}?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es", false, stream_context_create($arrContextOptions));
+            $obj = json_decode($json);
+
+            $a = false;
+
+            if ($episode->titulo !== $obj->name){
+                $episode->titulo = e($obj->name);
+                $a = true;
+            }
+
+            if ($episode->resumen !== $obj->overview){
+                $episode->resumen = e($obj->overview);
+                $a = true;
+            }
+
+            if ($episode->image_path !== "https://image.tmdb.org/t/p/w500" . $obj->still_path){
+                $episode->image_path = "https://image.tmdb.org/t/p/w500" . e($obj->still_path);
+                $a = true;
+            }
+
+            if ($a){
+                $episode->save();
+            }
+        }
 
         $episodios = Episodio::where('temporada', e($temporada))
             ->where('serie_id', $serieuri->id)
             ->orderBy('episodio', 'asc')
             ->get();
 
-        if (empty($episode))
-            abort(404);
+
 
         $keywords = explode(",", $episode->keywords);
 
