@@ -137,43 +137,18 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
-
-    dd(empty(\App\Movie::where('video_url', 'LIKE' ,'%%')->first()));
-
-   /*$a = ['a' => 'b', 'c' => 'd'];
-
-    $a['e'] = 'f';
-
-
-    dd($a['e']);*/
-   /* $a = "https://drive.google.com/file/d/12bJ1jqzd0HOFEOsPYhPT0TJ96lZav4do/preview, https://openload.co/embed/lF0qWZpokVU/";
-
-    $key = encrypt($a);
-
-    //echo $key . "<br>";
-*/
-    /*try {
-        $videos = explode(",", \App\Movie::select('video_url')->where('id', 1)->first()->video_url);
-
-        foreach ($videos as $video) {
-            echo $decrypted = decrypt($video);
-        }
-    } catch (Illuminate\Contracts\Encryption\DecryptException $e) {
-        //
-    }*/
-
-    /*$arrContextOptions=array(
+    $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
             "verify_peer_name"=>false,
         ),
     );
 
-    $json = file_get_contents('https://api.themoviedb.org/3/tv/60573?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es', false, stream_context_create($arrContextOptions));
+    $json = file_get_contents('https://api.themoviedb.org/3/movie/293660/similar?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&page=1', false, stream_context_create($arrContextOptions));
     $obj = json_decode($json);
 
 
-    dd($obj);*/
+    dd($obj);
 });
 
 Route::post('/multfunc', function (){

@@ -47,7 +47,7 @@ Home @endsection
     <div class="s-slider">
         <h1 class="semititulo" style="margin-bottom: -5px;">Películas más destacadas!</h1>
         <div class="slick-sli">
-            @foreach($ultimostres as $ultimo)
+            @foreach($slider_peliculas as $ultimo)
                 <div>
                     @if(empty($ultimo->poster_path))
                         <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">
@@ -64,7 +64,7 @@ Home @endsection
     <div class="s-slider">
         <h1 class="semititulo" style="margin-bottom: -5px;">Series recientes</h1>
         <div class="slick-sli">
-            @foreach($ultimostres as $ultimo)
+            @foreach($slider_series as $ultimo)
                 <div>
                     @if(empty($ultimo->poster_path))
                         <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">

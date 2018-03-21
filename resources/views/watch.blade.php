@@ -89,6 +89,20 @@ Home @endsection
 
             <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
 
+            <div class="share">
+                <div class="twitter">
+                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $episode->titulo . substr($episode->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
+                        <i class="icon-twitter"></i> <b>Twitter</b>
+                    </a>
+                </div>
+
+                <div class="facebook">
+                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
+                        <i class="icon-facebook"></i> <b>Facebook</b>
+                    </a>
+                </div>
+            </div>
+
             <div class="tags">
                 <h6>tags:</h6>
                 @foreach($keywords as $tag)

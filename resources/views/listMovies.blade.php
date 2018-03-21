@@ -39,7 +39,8 @@ Home @endsection
                     </a>
 
                     <div class="cantidad">
-                        <p>{{ $fecha }}</p>
+                        <?php $_helper = new \App\Library\MyHelper(); ?>
+                        <p>{{ $_helper->convertToHoursMins($movie->duracion, '%02d horas %02d minutos') }}</p>
                     </div>
                 </div>
                 <div class="info">

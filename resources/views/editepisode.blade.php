@@ -80,7 +80,11 @@ Upload @endsection
                     @if(empty($episode->video_url))
                     <input type="url" name="video_url" class="w3-input w3-border w3-round-large" id="video_url" placeholder="drive....">
                     @else
-                    <input type="url" name="video_url" class="w3-input w3-border w3-round-large" id="video_url" value="{{ $episode->video_url }}">
+                        <?php $a = array(); ?>
+                        @foreach(explode(",", $episode->video_url) as $item)
+                            <?php try{ array_push($a, decrypt($item)); } catch (Illuminate\Contracts\Encryption\DecryptException $e) { }; ?>
+                        @endforeach
+                    <input type="url" name="video_url" class="w3-input w3-border w3-round-large" id="video_url" value="{{ implode(",", $a) }}">
                     @endif
                 </div>
 

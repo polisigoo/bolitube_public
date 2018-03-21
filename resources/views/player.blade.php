@@ -127,6 +127,18 @@
                                 <div><img src="{{ asset('css/img/rapidvideo.png') }}" /></div>
                             </div>
                         </li>
+                        @elseif (preg_match("/\b(\w*vidlox\w*)\b/", $opurl))
+                            <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Vidlox" data-player="vidlox" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
+                                <div class="iconBig">
+                                    <div><img src="{{ asset('css/img/vidlox.png') }}" /></div>
+                                </div>
+                            </li>
+                        @elseif (preg_match("/\b(\w*vidoza\w*)\b/", $opurl))
+                            <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Vidoza" data-player="vidoza" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
+                                <div class="iconBig">
+                                    <div><img src="{{ asset('css/img/vidoza.png') }}" /></div>
+                                </div>
+                            </li>
                         @endif
                     @endforeach
                 </ul>

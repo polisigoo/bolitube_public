@@ -17,7 +17,12 @@ class MovieController extends Controller
 
         $generos = Movie::select('generos')->distinct()->get();
 
-        return view('watchMovie')->with(compact('movie', 'generos'));
+        $mas_vistos = Movie::select('uri', 'titulo', 'fondo_path', 'fecha_estreno')
+            ->orderBy('views', 'desc')
+            ->take(6)
+            ->get();
+
+        return view('watchMovie')->with(compact('movie', 'generos', 'mas_vistos'));
     }
 
     public function movielist(){

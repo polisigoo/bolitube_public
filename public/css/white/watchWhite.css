@@ -218,6 +218,7 @@ span.as_quality{
 .sbox h1,.sbox h2{
     float: left;
     width: 100%;
+    border-bottom: 1px solid #000;
     margin-bottom: 8px;
     padding-bottom: 15px;
     padding-top: 25px;
@@ -440,6 +441,38 @@ h1.inf_episodio{
 
 .modo-cine button{
     color: #FFFFFF;
+}
+
+.related{
+    width: 100%;
+    float: left;
+    position: relative;
+    padding: 25px 5%;
+    background: 0;
+    border-bottom: solid 3px;
+    border-color: rgba(0, 0, 0, 0.31);
+}
+
+.related .slick-dots{
+    background-color: #fff0;
+}
+
+.related .slick-next, .related  .slick-prev{}
+
+.related .slick-slide{
+    width: 206px !important;
+    border-radius: 9px;
+}
+
+.semititulo{
+    background-color: #fafafa;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #000;
+    border-bottom: 2px solid #1010109c;
+    padding-bottom: 4px;
+    margin-bottom: 11px;
 }
 
 .modo-cine button i{}

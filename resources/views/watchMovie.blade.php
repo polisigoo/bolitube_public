@@ -4,10 +4,30 @@
 Home @endsection
 
 @section("links")
+    {{-- Seo --}}
+    <meta name="description" content="Aquí puedes ver {{ $movie->titulo }} en alta calidad. Disfrutalo totalmente gratis"/>
+    <meta name="keywords" content="Aquí puedes ver {{ $movie->titulo }} en alta calidad. Disfrutalo totalmente gratis"/>
+
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content="Ver {{ $movie->titulo . " " . substr($movie->fecha_estreno, 0,4) }} Latino Sub Online HD" />
+    <meta property="og:url" content="{{ $movie->fondo_path }}" />
+    <meta property="og:image" content="{{ $movie->fondo_path }}" />
+    <meta property="og:image:width" content="500" />
+    <meta property="og:image:height" content="281" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="Aquí puedes ver {{ $movie->titulo }} en alta calidad. Disfrutalo totalmente gratis" />
+    <meta name="twitter:title" content="Ver {{ $movie->titulo . " " . substr($movie->fecha_estreno, 0,4) }} Latino Sub Online HD" />
+    <meta name="twitter:image" content="{{ $movie->fondo_path }}" />
+
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset("css/main.css") }}" rel="stylesheet">
     <link href="{{ asset("css/white/watchWhite.css") }}" rel="stylesheet">
     <link href="{{ asset("css/fonts/style.css") }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset("css/slick.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/slick-theme.css") }}">
 @endsection
 
 
@@ -16,6 +36,7 @@ Home @endsection
 @include("layouts.navbarWhite")
 <div id="contenedor">
 <div id="single">
+
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
@@ -32,7 +53,7 @@ Home @endsection
             <div class="modo-cine">
              <button class="btn btn-dark" id="mod-cine">Modo cine <i class="icon-enter" id="c-ico"></i></button>
             </div>
-            <h1 class="inf_episodio">{{ $movie->titulo }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
+            <h1 class="inf_episodio">{{ htmlspecialchars_decode($movie->titulo) }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
 
             <div class="edit"><a href="{{ route('movie.watch',[
                                             'movieuri' => $movie->uri]) . '/edit' }}"><span class="icon-pencil"></span>Editar</a></div>
@@ -40,6 +61,20 @@ Home @endsection
             <div class="overview">
                 <h2>Sinopsis</h2>
                 <h3 class="inf_descripcion">{{ $movie->resumen }}</h3>
+            </div>
+
+            <div class="share">
+                <div class="twitter">
+                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://twitter.com/intent/tweet?text={{ $movie->titulo . substr($movie->fecha_estreno, 0,4) }}&amp;url={{ request()->url() }}', 'Twitter', 'toolbar=0, status=0, width=650, height=450');" data-rurl="{{ request()->url() }}" class="twitter dt_social">
+                        <i class="icon-twitter"></i> <b>Twitter</b>
+                    </a>
+                </div>
+
+                <div class="facebook">
+                    <a data-id="52443" href="javascript: void(0);" onclick="window.open ('https://facebook.com/sharer.php?u={!! request()->url()  !!}', 'Facebook', 'toolbar=0, status=0, width=650, height=450');" class="facebook dt_social">
+                        <i class="icon-facebook"></i> <b>Facebook</b>
+                    </a>
+                </div>
             </div>
 
             <div class="tags">
@@ -54,43 +89,37 @@ Home @endsection
         </form>
         {{--<div type="hidden" id="path" value="url('/')"></div>--}}
 
-        <div class="sbox sinfo">
-            <h2>{{ str_replace("_", " ", $movie->titulo) }}</h2>
-            <div id="categ_content" style="padding-top:0">
-                <div id="categ_carpeta">
-                    <div class="carpeta_content">
-                        <div class="se-a" style="display:block">
-                            <ul class="videos">
-                                    <?php $ab = 1; ?>
-                                   {{--@foreach($related as $rel)--}}
-                                    {{--<li class="mark-{{ $ab }}">--}}
-                                        {{--<div class="imagen">--}}
-                                            {{--<a href="#">--}}
-                                            {{--@if(empty($rel->image_name))--}}
-                                                {{--<img src="{{ asset('css/img/question.png') }}" alt="{{ $title }}" id="imagen">--}}
-                                            {{--@else--}}
-                                                {{--@if(!file_exists(storage_path() . '/app/public/images/' . $categoria .'/' . $carpeta . '/hq'. $rel->image_name))--}}
-                                                    {{--<img src="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/'.$rel->image_name) }}" alt="{{ $title }}" id="imagen">--}}
-                                                {{--@else--}}
-                                                    {{--<img src="{{ url('/storage/images/'.$categoria .'/'.$carpeta.'/hq'.$rel->image_name) }}" alt="{{ $title }}" id="imagen">--}}
-                                                {{--@endif--}}
-                                            {{--@endif--}}
-                                            {{--</a>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="numerando">1x{{ $ab }}</div>--}}
-                                        {{--<div class="episodiotitle">--}}
-                                            {{--<a href="{{ route('video.watch', ['videoid' => $rel->unique_id]) }}">{{ $rel->titulo }}</a>--}}
-                                            {{--<span class="date">{{ date("F d, Y", strtotime($rel->created_at)) }}</span>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-                                       {{--<?php $ab++;  ?>--}}
-                                   {{--@endforeach--}}
+        <div class="related">
+            <div class="s-slider">
+                <h1 class="semititulo" style="">Películas relacionadas</h1>
+                <div class="slick-sli">
+                    <?php $arrContextOptions=array(
+                        "ssl"=>array(
+                            "verify_peer"=>false,
+                            "verify_peer_name"=>false,
+                        ),
+                    );
 
-                            </ul>
+                    $json = file_get_contents("https://api.themoviedb.org/3/movie/{$movie->id_db}/similar?api_key=cc4b67c52acb514bdf4931f7cedfd12b&language=es&page=1", false, stream_context_create($arrContextOptions));
+                    $obj = json_decode($json); ?>
+                    @foreach($obj->results as $ultimo)
+                        <?php $fecha = substr($ultimo->release_date, 0,4); ?>
+                        <div>
+                            @if(empty($ultimo->poster_path))
+                                <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->original_title }}">
+                            @else
+                                <a href="{{ /*route('episodios.list', ['serieuri' => $ultimo->uri])*/ preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(str_replace(":" , "", $ultimo->original_title)))) . "-" .$fecha }}">
+                                    <img src="{{ "https://image.tmdb.org/t/p/w400".$ultimo->poster_path }}" alt="{{ $ultimo->original_title }}" style="width: 200px;height: 193px;">
+                                </a>
+                            @endif
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+        </div>
+
+        <div class="sbox sinfo">
+
         </div>
     </div>
 
@@ -123,30 +152,20 @@ Home @endsection
             <div id="rContainer" class="rContainer" style="position: relative;top: 0;left: 0;">
                 <aside id="aside_content" class="asideContent">
                     <div class="as_content">
+                        @foreach($mas_vistos as $mov)
                         <article class="as_item_a" id="post-14">
-                            <a href="/movies/la-ciudad-de-las-estrellas-la-la-land/">
+                            <a href="{{ route('movie.watch',['movieuri' => $mov->uri]) }}">
                                 <div class="image">
-                                    <img src="http://blog.aulaformativa.com/wp-content/uploads/2016/01/razones-peso-aprender-python-este-2016-base-teorica.jpg" alt="Python" class="as_img_loaded">
+                                    <img src="{{ $mov->fondo_path }}" alt="{{ htmlspecialchars_decode($mov->titulo) }}" class="as_img_loaded">
                                     <div class="as_data">
-                                        <h3>Titulo</h3>
-                                        <span class="as_date">Categoria - <i>Carpeta</i></span>
+                                        <h3>{{ htmlspecialchars_decode($mov->titulo) }}</h3>
+                                        <span class="as_date">{{ $mov->fecha_estreno }}</span>
                                     </div>
-                                    <span class="as_quality">HD-R</span>
+                                    {{--<span class="as_quality">HD-R</span>--}}
                                 </div>
                             </a>
                         </article>
-                        <article class="as_item_a" id="post-14">
-                            <a href="/movies/la-ciudad-de-las-estrellas-la-la-land/">
-                                <div class="image">
-                                    <img src="http://is5.mzstatic.com/image/thumb/Purple128/v4/20/66/53/2066535d-3cb7-b487-3056-69a7152d3504/source/1200x630bb.jpg" alt="Python" class="as_img_loaded">
-                                    <div class="as_data">
-                                        <h3>Titulo</h3>
-                                        <span class="as_date">Categoria - <i>Carpeta</i></span>
-                                    </div>
-                                    <span class="as_quality">HD-R</span>
-                                </div>
-                            </a>
-                        </article>
+                        @endforeach
                     </div>
                 </aside>
             </div>
@@ -158,13 +177,24 @@ Home @endsection
 @endsection
 
 @section('afterbootstrap')
+
+
+    <script type="text/javascript" src="{{ asset("js/slick.min.js") }}"></script>
+    <script>
+            $('.slick-sli').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                variableWidth: true,
+            });
+    </script>
     <script>
         $( document ).ready(function() {
             var c = false;
             $('#TituloDePagina').text('{{ $movie->titulo }}');
             $('#mod-cine').click(function () {
                 if(!c){
-                    $('.playerVideo').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
+                    $('#g-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');
 
                     $('#s-bar').css({
                         'bottom' : '0',
@@ -190,7 +220,7 @@ Home @endsection
 
                     c = true;
                 }else{
-                    $('.playerVideo').attr('style', 'width: 100% !important;height: 480px;');
+                    $('#g-video').attr('style', 'width: 100% !important;height: 480px;');
                     $('#s-bar').css({
                         'bottom' : '0',
                         'height' : '100%'

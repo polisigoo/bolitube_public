@@ -57,9 +57,12 @@ class PageController extends Controller
 
         $generos = Serie::select('generos')->distinct()->get();
 
-        $ultimostres = Serie::latest()->take(20)->get(); //latest tiene en cuenta el created_at
+        $slider_series = Serie::latest()->take(20)->get(); //latest tiene en cuenta el created_at
 
-        return view('index')->with(compact('series', 'generos','ultimostres'));
+        $slider_peliculas = Movie::latest()
+            ->take(20)
+            ->get(); //latest tiene en cuenta el created_at
+        return view('index')->with(compact('series', 'generos','slider_series', 'slider_peliculas'));
     }
 
     public function uploads(){
@@ -479,12 +482,12 @@ class PageController extends Controller
         $helper = new MyHelper();
 
         $myk = new MyHelper();
-        $key = $myk->generateKeywordsMovie(e($request->input('titulo_t')));
+        $_keywords = $myk->generateKeywordsMovie(e($request->input('titulo_t')));
 
         $estreno = e($request->input('estreno'));
         if (isset($estreno)){
             $fecha = substr($estreno, 0,4);
-            $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(e($request->input('t_original')))));
+            $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(strtolower(str_replace(":" , "", e($request->input('t_original')))))));
             $uri .= "-" . $fecha;
         }else{
             $uri = preg_replace('[^0-9a-zA-Z]', "", str_replace(" ", '-', strtolower(e($request->input('t_original')))));
@@ -495,10 +498,20 @@ class PageController extends Controller
             $pelicula = new Movie();
             $pelicula->titulo = e($request->input('titulo_t'));
             $pelicula->titulo_original = e($request->input('t_original'));
-            $pelicula->video_url = e($request->input('video_url'));
+
+            $videos = array();
+
+            foreach (explode(",", request()->video_url) as $item) {
+                $key = encrypt($item);
+
+                array_push($videos, $key);
+            }
+
+            $pelicula->video_url = implode(",", $videos);
+
             $pelicula->fecha_estreno = $estreno;
             $pelicula->duracion = e($request->input('duracion'));
-            $pelicula->keywords = $key;
+            $pelicula->keywords = $_keywords;
             $pelicula->generos = e($request->input('generos'));
             $pelicula->poster_path = e($request->input('post_path'));
             $pelicula->fondo_path = e($request->input('fondo_path'));
