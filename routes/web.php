@@ -23,19 +23,65 @@ Route::get('/watch', function (){
 
 Route::get('/series/{serieuri}/{temporada}/{episodio}/', 'SerieController@serie')->name('serie.watch')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
 
-Route::get('/series/{serieuri}/{temporada}/{episodio}/edit', 'SerieController@episodeEdit')->name('episode.edit')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
 
-Route::post('/series/{serieuri}/{temporada}/{episodio}/save', 'SerieController@episodeSave')->name('episode.save')->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/series/{serieuri}/{temporada}/{episodio}/edit', 'SerieController@episodeEdit')
+        ->name('episode.edit')
+        ->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
 
 
-Route::get('/series/{serieuri}/edit', 'SerieController@serieedit')->name('serie.edit');
+    Route::post('/series/{serieuri}/{temporada}/{episodio}/save', 'SerieController@episodeSave')
+        ->name('episode.save')
+        ->where(['temporada' => "[0-9]+", 'episodio' => "[0-9]+"]);
 
-//Ruta usada para guardar cambios desde el formulario
-Route::post('/series/{serieuri}/edit/savechanges', 'PageController@serieEditSave')->name('serie.edit.save');
+    //return view to edit
+    Route::get('/movies/{movieuri}/edit', 'MovieController@editMovie')
+        ->name('movie.edit');
 
-//Ruta usada para agregar temporadas
-Route::post('/series/{serieuri}/edit/save', 'PageController@serieAddSeason')->name('serie.addSeason');
+    //save edited data
+    Route::post('/movies/{movieuri}/save', 'MovieController@editSaveMovie')
+        ->name('edit.movie.save');
 
+    Route::get('/series/{serieuri}/edit', 'SerieController@serieedit')
+        ->name('serie.edit');
+
+    //Ruta usada para guardar cambios desde el formulario
+    Route::post('/series/{serieuri}/edit/savechanges', 'PageController@serieEditSave')
+        ->name('serie.edit.save');
+
+    //Ruta usada para agregar temporadas
+    Route::post('/series/{serieuri}/edit/save', 'PageController@serieAddSeason')->name('serie.addSeason');
+
+
+    //Recepcion de los videos a subir
+    Route::post('/upload', "VideosController@videoupload");
+
+
+    //Formulario para subir videos
+    Route::get('/uploads', 'PageController@uploads')->name('video.upload');
+
+    /** CREATE */
+
+    //Formulario para crear serie
+    Route::get('/create/serie', 'PageController@createSerie')->name('create.serie');
+
+    //Formulario para crear serie
+    Route::post('/create/serie', 'PageController@saveSerie');
+
+    //Formulario para crear serie
+    Route::get('/create/movie', 'PageController@createMovie')->name('create.movie');
+
+    //Formulario para crear serie
+    Route::post('/create/movie', 'PageController@saveMovie');
+
+    //Formulario para crear episodio
+    Route::get('/create/episodio', 'PageController@createEpisodio')->name('create.episodio');
+
+    //Formulario para crear episodio
+    Route::post('/create/episodio', 'PageController@saveEpisodio');
+
+
+});
 
 //Lista de series
 Route::get('/series/', 'PageController@serieList')->name('series.list');
@@ -45,12 +91,6 @@ Route::get('/series/{serieuri}', 'SerieController@episodeslist')->name('episodio
 
 /** Movie */
 Route::get('/movies/{movieuri}', 'MovieController@watchMovie')->name('movie.watch');
-
-//return view to edit
-Route::get('/movies/{movieuri}/edit', 'MovieController@editMovie')->name('movie.edit');
-
-//save edited data
-Route::post('/movies/{movieuri}/save', 'MovieController@editSaveMovie')->name('edit.movie.save');
 
 Route::get('/movies/', 'MovieController@movielist')->name('movie.list');
 
@@ -63,57 +103,29 @@ Route::get('/watch/{videoid}', 'VideosController@watch')->name('video.watch');
 //Obtiene el nombre del video y realiza el stream en eg: localhost/routes/public/video/arrested.mkv
 Route::get('/video/{videoid}', 'VideosController@stream')->name('video.stream');
 
-//Recepcion de los videos a subir
-Route::post('/upload', "VideosController@videoupload");
-
 //Lista de videos
 Route::get('/list', 'PageController@list')->name('video.list');
 
 //Lista de videos
 Route::get('/list/{categoria}', 'PageController@listCategoria')->name('video.list.categoria');
 
-//Formulario para subir videos
-Route::get('/uploads', 'PageController@uploads')->name('video.upload');
 
 
-
-//Formulario para crear serie
-Route::get('/create/serie', 'PageController@createSerie')->name('create.serie');
-
-//Formulario para crear serie
-Route::post('/create/serie', 'PageController@saveSerie');
-
-//Formulario para crear serie
-Route::get('/create/movie', 'PageController@createMovie')->name('create.movie');
-
-//Formulario para crear serie
-Route::post('/create/movie', 'PageController@saveMovie');
-
-
-
-//Formulario para crear episodio
-Route::get('/create/episodio', 'PageController@createEpisodio')->name('create.episodio');
-
-//Formulario para crear episodio
-Route::post('/create/episodio', 'PageController@saveEpisodio');
-
-
-
-//Entrega el formulario para editar la info. del video
-Route::get('/edit/video/{videoid}',"VideosController@editvideo")
-    ->where('videoid', '[A-Za-z0-9]+')
-    ->name('edit.video');
-
-//guarda la miniatura del video
-Route::post('/edit/video/{videoid}/save',"VideosController@savechanges")->where('videoid', '[A-Za-z0-9]+');
-
-//guarda los datos modificados
-Route::post('/save/{videoid}', "PageController@guardarcambios")->where('videoid', '[A-Za-z0-9]+');
+////Entrega el formulario para editar la info. del video
+//Route::get('/edit/video/{videoid}',"VideosController@editvideo")
+//    ->where('videoid', '[A-Za-z0-9]+')
+//    ->name('edit.video');
+//
+////guarda la miniatura del video
+//Route::post('/edit/video/{videoid}/save',"VideosController@savechanges")->where('videoid', '[A-Za-z0-9]+');
+//
+////guarda los datos modificados
+//Route::post('/save/{videoid}', "PageController@guardarcambios")->where('videoid', '[A-Za-z0-9]+');
 
 /** SUBTITULOS */
 
-//Recepcion de los subtitulos
-Route::post('storage/create', "SubtitleController@upload");
+////Recepcion de los subtitulos
+//Route::post('storage/create', "SubtitleController@upload");
 
 
 /** Refresh token */
@@ -137,6 +149,10 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 
 /** Others */
 Route::get('/test', function () {
+
+    return "<script type=\"text/javascript\">location.href = 'https://www.google.com';</script>";
+
+    /*
     $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
@@ -148,7 +164,7 @@ Route::get('/test', function () {
     $obj = json_decode($json);
 
 
-    dd($obj);
+    dd($obj);*/
 });
 
 Route::post('/multfunc', function (){
@@ -164,10 +180,10 @@ Route::post('/multfunc', function (){
 
 Route::post('/getopt/{select}', "PageController@getopt");
 
-//Formulario de prueba, borrar
-Route::get('/formulario', function (){
-    return view('new');
-});
+////Formulario de prueba, borrar
+//Route::get('/formulario', function (){
+//    return view('new');
+//});
 
 
 //Player
@@ -178,5 +194,9 @@ Route::get('/embed/{server}/{key}', 'PageController@embed')->name('embed');
 
 
 Auth::routes();
+
+Route::get('/register', function (){
+    return redirect()->route('index');
+})->name('register');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -52,7 +52,7 @@ Home @endsection
                     @if(empty($ultimo->poster_path))
                         <img src="{{ asset('css/img/question.png') }}" alt="{{ $ultimo->show_name }}">
                     @else
-                        <a href="{{ route('episodios.list', ['serieuri' => $ultimo->uri]) }}">
+                        <a href="{{ route('movie.watch', ['movieuri' => $ultimo->uri]) }}">
                             <img src="{{ $ultimo->poster_path }}" alt="{{ $ultimo->show_name }}" style="width: 200px;height: 193px;">
                         </a>
                     @endif

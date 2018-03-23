@@ -19,6 +19,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('movie.list')}}" id="a-list-movie">Movies</a>
             </li>
+            @if(Illuminate\Support\Facades\Auth::check())
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Crear
@@ -30,6 +31,7 @@
                     <a class="dropdown-item" href="{{ route('create.movie') }}">Pelicula</a>
                 </div>
             </li>
+            @endif
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}">
             <input class="form-control mr-sm-2" type="search" name="query_s" placeholder="Search" aria-label="Search">

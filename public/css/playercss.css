@@ -502,7 +502,7 @@ body {
     height: 100%;
     position: absolute;
     z-index: 2;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(60, 84, 70, 0.8);
 }
 #player .menuPlayer {
     list-style: none;
@@ -520,21 +520,21 @@ body {
 }
 #player .menuPlayer li.bar {
     width: 100%;
-    background-color: #262B36;
+    background-color: #636363;
     height: 81.8%;
     position: absolute;
     bottom: 0px;
 }
 #player .menuPlayer li.option {
-    height: 83%;
+    /* height: 83%; */
     width: 8.2%;
     display: inline-table;
-    -webkit-transform: skew(-15deg);
+    /* -webkit-transform: skew(-15deg); */
     -khtml-transform: skew(-15deg);
     -moz-transform: skew(-15deg);
     -ms-transform: skew(-15deg);
     -o-transform: skew(-15deg);
-    transform: skew(-15deg);
+    /* transform: skew(-15deg); */
     cursor: pointer;
     position: relative;
     z-index: 1;
@@ -547,12 +547,12 @@ body {
     margin-right: auto;
     display: table;
     position: relative;
-    -webkit-transform: skew(15deg);
+    /* -webkit-transform: skew(15deg); */
     -khtml-transform: skew(15deg);
     -moz-transform: skew(15deg);
     -ms-transform: skew(15deg);
     -o-transform: skew(15deg);
-    transform: skew(15deg);
+    /* transform: skew(15deg); */
 }
 #player .menuPlayer li.option .iconBig div {
     display: table-cell;
@@ -565,11 +565,12 @@ body {
     width: 100%;
 }
 #player .menuPlayer li.option.selected {
-    height: 100%;
-    width: 14.1%;
-    margin-top: 0px;
+    height: calc(15% + 64px);
+    width: 10.1%;
+    margin-top: calc(6% - 40px);
     margin-right: -0.40%;
     margin-left: 0.35%;
+    background-color: hsl(11, 43%, 55%);
     -webkit-box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
     -khtml-box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
     -moz-box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
@@ -612,8 +613,8 @@ body {
 #player .menuPlayer li.pflv:hover { background-color: #202832; }
 #player .bottomPlayer {
     width: 100%;
-    padding-bottom: 15%;
-    bottom: 0px;
+    padding-bottom: 10%;
+    bottom: 40%;
     position: absolute;
     z-index: 3;
 }
@@ -688,9 +689,9 @@ body {
 }
 #player .centerPlayer {
     width: 100%;
-    height: 68px;
-    top: 9%;
-    bottom: 25%;
+    height: 90px;
+    /* top: 9%; */
+    bottom: 13%;
     margin-top: auto;
     margin-bottom: auto;
     position: absolute;

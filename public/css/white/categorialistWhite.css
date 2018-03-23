@@ -230,7 +230,7 @@ ul.video li .date{
 .categoria .large p.resumen{
     font-size: 0.9em;
     color: #fff;
-    overflow: hidden;
+    overflow: scroll;
     font-family: "PT Sans",Roboto, Arial, sans-serif;
     height: 160px;
 }

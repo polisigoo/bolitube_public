@@ -534,7 +534,14 @@ class PageController extends Controller
 
 
         if (empty($request->m)) {
+            if (!preg_match("/\b(\w*series\w*)\b/", url()->previous())){
+                dd();
+            }
+
             $epi = Episodio::where('id', e($request->id))->first();
+
+            if (empty($epi))
+                return "Not found";
 
             foreach (explode(",", $epi->video_url) as $opcion) {
                 if (preg_match("/[google]/", $opcion)) {
@@ -550,7 +557,15 @@ class PageController extends Controller
                 array_push($opciones, $opcion);
             }
         }else{
+            if (!preg_match("/\b(\w*movies\w*)\b/", url()->previous())){
+                dd();
+            }
+
+
             $mov = Movie::select('video_url')->where('id', e($request->id))->first();
+
+            if (empty($mov))
+                return "Not found";
 
             $videos = explode(",", $mov->video_url);
 
@@ -569,6 +584,10 @@ class PageController extends Controller
     }
 
     public function embed($servidor, $key){
+        if (!preg_match("/\b(\w*player\w*)\b/", url()->previous())){
+            dd();
+        }
+
         if (!empty(\request()->m)){
             if (!empty(Movie::where('video_url', 'LIKE' ,'%'.e($key).'%')->first())) {
 
@@ -588,7 +607,9 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
 
 
                 echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
-                echo "<iframe src=".$url." width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
+                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
+
+                //echo "<iframe src=".$url." width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
             }
         }else{
             if (!empty(Episodio::where('video_url', 'LIKE', '%' . e($key) . '%')->first())) {
@@ -599,6 +620,8 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
                     //
                 }
 
+
+                echo "<script> if(window.self === window.top){ window.stop(); } </script>";
                 echo '<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>';
                 echo "<style type='text/css'>#player #ap{width:296px;height:250px;position:absolute;top:46%;left:50%;margin-top:-150px;margin-left:-150px;z-index:99999}</style>";
                 echo "<script type='text/javascript'>
@@ -609,7 +632,9 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
 
 
                 echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
-                echo "<iframe src=" . $url . " width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
+
+                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
+                //echo "<iframe src=" . $url . " width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
             }
 
         }

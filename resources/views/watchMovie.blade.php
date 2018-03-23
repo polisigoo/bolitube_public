@@ -38,6 +38,12 @@ Home @endsection
 <div id="contenedor">
 <div id="single">
 
+{{--<div class="flash" style="position: fixed;top: 55px;left: 50%;-webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);transform: translateX(-50%);z-index: 101;max-width: 700px;">--}}
+{{--<div class="alert alert-success" style="text-align: center;"><a class="close">×</a>--}}
+        {{--Unconfirmed Device. Please confirm this device to access your account.--}}
+    {{--</div>--}}
+{{--</div>--}}
+
     {{-- oncontextmenu="return false;"--}}
     <div class="content">
         <div class="playerVideo">
@@ -56,8 +62,10 @@ Home @endsection
             </div>
             <h1 class="inf_episodio">{{ htmlspecialchars_decode($movie->titulo) }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
 
+            @if(Illuminate\Support\Facades\Auth::check())
             <div class="edit"><a href="{{ route('movie.watch',[
                                             'movieuri' => $movie->uri]) . '/edit' }}"><span class="icon-pencil"></span>Editar</a></div>
+            @endif
 
             <div class="overview">
                 <h2>Sinopsis</h2>
@@ -265,4 +273,5 @@ Home @endsection
             });
         });
     </script>
+    <script src="{{ asset('js/deb.js') }}" type="text/javascript"></script>
 @endsection

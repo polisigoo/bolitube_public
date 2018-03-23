@@ -1,4 +1,4 @@
-<html>
+<html oncontextmenu="return false">
     <head>
         <meta charset="UTF-8" />
         <title>Player</title>
@@ -9,6 +9,11 @@
         <link href="{{ asset('css/playercss.css') }}" rel="stylesheet" type="text/css" />
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+            if(window.self === window.top){
+                location.href = 'https://google.com';
+            }
+        </script>
         <script type="text/javascript">
             $(window).on('load', function() {
                 setButtons();
@@ -78,7 +83,9 @@
         <div id="bgBlackPlayer"></div>
         <div class="centerPlayer">
             <div class="msgSelPlayer">Selecciona un Servidor para Reproducir el video.</br>
-                </br><img style="margin-top: 11px;width: 69px;" src="{{ asset('css/img/fecha.png') }}" width="" height=""></div>
+                </br>
+                {{--<img style="margin-top: 11px;width: 69px;" src="{{ asset('css/img/fecha.png') }}" width="" height="">--}}
+            </div>
             <div class="butPlayFilm" svid="">
                 <div class="iconPlay">
                     <img src="{{ asset('css/img/play.png') }}">
@@ -104,37 +111,37 @@
                             <?php $mo = '' ?>
                         @endif
                         @if(preg_match("/\b(\w*google\w*)\b/", $opurl))
-                        <li class="option" style="background-color: hsl(11, 43%, 55%);" title="Ver en Google" data-player="Google" data-playerid="{!! url('/embed/google/'. $opcion . $mo)  !!}">
+                        <li class="option"  title="Ver en Google" data-player="Google" data-playerid="{!! url('/embed/google/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/gdrive.png') }}" /></div>
                             </div>
                         </li>
                         @elseif (preg_match("/\b(\w*openload\w*)\b/", $opurl))
-                        <li class="option" style="background-color: hsl(263, 43%, 55%);" title="Ver en Openload" data-player="Openload" data-playerid={!! url('/embed/openload/'. $opcion . $mo) !!}>
+                        <li class="option"  title="Ver en Openload" data-player="Openload" data-playerid={!! url('/embed/openload/'. $opcion . $mo) !!}>
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/openload.png') }}" /></div>
                             </div>
                         </li>
                         @elseif (preg_match("/\b(\w*streamago\w*)\b/", $opurl))
-                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Streamango" data-player="Streamango" data-playerid="{!! url('/embed/streamago/'. $opcion . $mo)  !!}">
+                        <li class="option"  title="Ver en Streamango" data-player="Streamango" data-playerid="{!! url('/embed/streamago/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/streamango.png') }}" /></div>
                             </div>
                         </li>
                         @elseif (preg_match("/\b(\w*rapidvideo\w*)\b/", $opurl))
-                        <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Rapidvideo" data-player="Rapidvideo" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
+                        <li class="option" title="Ver en Rapidvideo" data-player="Rapidvideo" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/rapidvideo.png') }}" /></div>
                             </div>
                         </li>
                         @elseif (preg_match("/\b(\w*vidlox\w*)\b/", $opurl))
-                            <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Vidlox" data-player="vidlox" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
+                            <li class="option" title="Ver en Vidlox" data-player="vidlox" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
                                 <div class="iconBig">
                                     <div><img src="{{ asset('css/img/vidlox.png') }}" /></div>
                                 </div>
                             </li>
                         @elseif (preg_match("/\b(\w*vidoza\w*)\b/", $opurl))
-                            <li class="option" style="background-color: hsl(217, 43%, 55%);" title="Ver en Vidoza" data-player="vidoza" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
+                            <li class="option" title="Ver en Vidoza" data-player="vidoza" data-playerid="{!! url('/embed/rapidvideo/'. $opcion . $mo)  !!}">
                                 <div class="iconBig">
                                     <div><img src="{{ asset('css/img/vidoza.png') }}" /></div>
                                 </div>
