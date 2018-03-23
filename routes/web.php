@@ -150,7 +150,7 @@ Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.e
 /** Others */
 Route::get('/test', function () {
 
-    return "<script type=\"text/javascript\">location.href = 'https://www.google.com';</script>";
+    return redirect('https://www.google.com');
 
     /*
     $arrContextOptions=array(

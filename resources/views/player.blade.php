@@ -46,6 +46,10 @@
                     $('#player').css('display', 'none');
                     addiframe(SvID);
                     $('#Svplayer').css('display', 'block');
+
+                    if($(this).attr('np') === "Google"){
+                        $("#b").css("display","block");
+                    }
                 });
 
                 function addiframe(URL) {
@@ -74,6 +78,8 @@
     <body>
     <script src="{{ asset('js/code.js') }}"></script>
     <div id="Svplayer" class="Svplayer" style="position: absolute; width: 100%; height: 100%;bottom: -1.5px;background-color: #000;border-width: 1px;  border-style: solid;  border-color: #000; display: none;">
+        <div style='position:fixed;right:8px;top:9px;width:45px;height:45px;z-index:999;background:#000;display:none' id="b"></div>
+
         <div id="SvplayerID" style=" width: 100%; height: 100%;">
             <div id="flashplayer" class="" style="position: absolute; width: 100%; height: 100%;"></div>
         </div>
@@ -111,7 +117,7 @@
                             <?php $mo = '' ?>
                         @endif
                         @if(preg_match("/\b(\w*google\w*)\b/", $opurl))
-                        <li class="option"  title="Ver en Google" data-player="Google" data-playerid="{!! url('/embed/google/'. $opcion . $mo)  !!}">
+                        <li class="option" id="gg" title="Ver en Google" data-player="Google" data-playerid="{!! url('/embed/google/'. $opcion . $mo)  !!}">
                             <div class="iconBig">
                                 <div><img src="{{ asset('css/img/gdrive.png') }}" /></div>
                             </div>

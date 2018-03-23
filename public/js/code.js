@@ -19,7 +19,8 @@ $(document).ready(function(){
         var namePlayer = $(this).attr("data-player");
         var curId =  $(this).attr("data-playerid");
         $("#player .butPlayFilm .textPlay div").text("Ver en "+namePlayer);
-        $("#player .butPlayFilm").attr("svid", curId);
+        $("#player .butPlayFilm").attr({"svid" : curId,
+                                        "np" : namePlayer});
         $("#player .msgSelPlayer").hide();
         $("#player .butPlayFilm").css("display", "table");
     });

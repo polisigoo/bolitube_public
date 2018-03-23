@@ -605,9 +605,11 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
                 echo "<script type='text/javascript'>eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('d.c(\"<6 e=\'b:0;g: 0;3:1%;5: 1%; h: a; 7: 9\' 8=\'//f.n.4/p/q.i.4/r\\\' s=\'o\' j=\'0\' 5=\'1%\' 3=\'1%\' k=\'2\' l=\'2\' m=\'2\'></6>\");',29,29,'|100|true|width|com|height|iframe|border|src|none|absolute|top|write|document|style|streamango|left|position|google|frameborder|allowfullscreen|webkitallowfullscreen|mozallowfullscreen|poseidonhd|no|stream|drive|cDRUUlZ5NSs2OWh6cW5JaVdKcTQranQwUXAyZEp0Q1VEQ0VBUG51TzN6Z0MyTG5pN3VNR2FqRlo4N2tSa0NhRlp5WTNUeVh6NWdzcXM2S1lxOFFnS3NNNzFpY1FDNkQxVnhaOGdtTmVLYU09|scrolling'.split('|'),0,{}))
 </script>";
 
+                header("Location: $url"); /* Redirect browser */
+                exit();
 
-                echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
-                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
+//                echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
+//                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
 
                 //echo "<iframe src=".$url." width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
             }
@@ -631,9 +633,12 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
 </script>";
 
 
-                echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
-
-                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
+                header("Location: $url"); /* Redirect browser */
+                exit();
+//
+//                echo "<div style='position:fixed;right:15px;top:16px;width:45px;height:45px;z-index:999;background:#000'></div>";
+//
+//                echo "<script type='text/javascript'>location.href = '{$url}';</script>";
                 //echo "<iframe src=" . $url . " width='100%' height='100%' scrolling='no' frameborder='0' allowfullscreen='' webkitallowfullscreen='' mozallowfullscreen='' id='i'></iframe>";
             }
 
