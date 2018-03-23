@@ -691,6 +691,6 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
 
 //        dd($collection->take(9));
 
-        return json_encode($collection->take(6));
+        return json_encode($collection->take(36));
    }
 }

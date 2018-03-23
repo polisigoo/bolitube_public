@@ -18,13 +18,14 @@ Home @endsection
 <div id="single">
     <div class="videos">
 
-    <h2><a href="#" class="titulo">Peliculas</a></h2>
     <div class="clear" style="clear: both;"></div>
         <ul class='listas'>
+            <h2><a href="#" class="titulo">Peliculas</a></h2>
 
         @foreach($movies as $movie)
             <?php $fecha = substr($movie->fecha_estreno, 0,4); ?>
             <ol class="folder">
+
                 <div class="imagen">
                     <a href="{{ route('movie.watch', ['movieuri' => $movie->uri]) }}">
                         @if(empty($movie->poster_path))

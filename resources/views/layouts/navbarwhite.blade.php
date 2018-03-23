@@ -42,7 +42,8 @@
 </nav>
 
 <div class="l-search">
-    <ul class="items" id="items">
+    <div class="spinner icon-spinner2 hidden" aria-hidden="true" id="spinn"></div>
+    <ul class="items scroll-black" id="items">
     </ul>
 </div>
 </div>

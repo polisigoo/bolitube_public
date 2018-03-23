@@ -54,12 +54,14 @@
 
 .l-search{
     margin-top: 0;
-    margin-right: 22px;
+    margin-right: 1px;
     right: 0;
-    width: 216px;
-    background-color: #fff;
-    position: fixed;
+    width: 255px;
+    /*background-color: #fff;*/
+    position: absolute;
     z-index: 200;
+
+    height: 50px;
 }
 
 .l-search .items{
@@ -67,6 +69,12 @@
     width: 100%;
     box-shadow: 0 10px 20px -3px rgba(0,0,0,.52);
     margin-top: 0;
+
+    padding: 0;
+
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 449px;
 }
 
 .l-search .item{
@@ -75,6 +83,7 @@
     width: 100%;
     display: block;
     padding: 10px;
+    background-color: #FFFFFF;
 }
 
 .l-search .item:hover{
@@ -120,6 +129,58 @@
 .l-search .items .item .resum .overv{
     font-size: 0.7rem;
     color: black;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.show{
+    display: initial !important;
+}
+
+
+
+.scroll-black::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.scroll-black::-webkit-scrollbar
+{
+    width: 9px;
+    background-color: #F5F5F5;
+}
+
+.scroll-black::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+@keyframes anim-rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.spinner {
+    display: inline-block;
+    font-size:2em;
+    position: absolute;
+    right: 95px;
+    top: -13px;
+    height: 1em;
+    line-height: 1;
+    margin: .5em;
+    animation: anim-rotate 2s infinite linear;
+    color: #9a1111;
+    text-shadow: 0 0 .25em rgba(255,255,255, .3);
 }
 
 @media screen and (max-width: 1000px) {

@@ -17,10 +17,9 @@ Home @endsection
 <div id="contenedor">
 <div id="single">
     <div class="videos">
-
-        <h2><a href="#" class="titulo">Series</a></h2>
 <div class="clear" style="clear: both;"></div>
         <ul class='listas'>
+            <h2><a href="#" class="titulo">Series</a></h2>
 
         @foreach($series as $serie)
             <ol class="folder">
