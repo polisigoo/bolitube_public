@@ -1,3 +1,4 @@
+<div class="s" style="position: relative;">
 <link rel="stylesheet" href="{{ asset('css/navbarwhite.css') }}">
 <nav class="navbar navbar-expand-lg navbar-light bg-light py-1">
     <a class="navbar-brand" href="{{ url('/') }}">
@@ -34,8 +35,14 @@
             @endif
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}">
-            <input class="form-control mr-sm-2" type="search" name="query_s" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" name="query_s" placeholder="Search" aria-label="Search" autocomplete="off">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="icon-search" style="color: #00bf00"></i></button>
         </form>
     </div>
 </nav>
+
+<div class="l-search">
+    <ul class="items" id="items">
+    </ul>
+</div>
+</div>

@@ -644,4 +644,53 @@ eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!\'\'.replace
 
         }
     }
+
+    public function searchDelivery(){
+        $keyword = e(request()->keyword);
+
+        if (empty($keyword) || strlen($keyword) < 2)
+            abort(404);
+
+        $mov = Movie::select('titulo', 'poster_path', 'uri', 'resumen', 'fecha_estreno')
+                        ->where('titulo', 'LIKE', "%". $keyword . "%")
+                        ->orWhere('titulo_original', 'LIKE', "%". $keyword . "%")
+                        ->get();
+
+        $series = Serie::select('show_name', 'poster_path', 'uri', 'descripcion', 'primera_transmision')
+            ->where('show_name', 'LIKE', "%". $keyword . "%")
+            ->get();
+
+
+        $collection = collect();
+
+        foreach ($mov as $movie){
+            $movie->uri = route('movie.watch',['movieuri' => $movie->uri]);
+            $movie->fecha_estreno = substr($movie->fecha_estreno, 0,4);
+            $movie->titulo = htmlspecialchars_decode($movie->titulo);
+            $movie->resumen = html_entity_decode(htmlspecialchars_decode($movie->resumen), ENT_QUOTES);
+            $movie->poster_path = str_replace("https://image.tmdb.org/t/p/w500", "https://image.tmdb.org/t/p/w154", $movie->poster_path);
+
+            $collection->push($movie);
+        }
+
+        foreach ($series as $serie){
+            $serie->titulo =  htmlspecialchars_decode($serie->show_name);
+            $serie->resumen = html_entity_decode(htmlspecialchars_decode($serie->descripcion), ENT_QUOTES);
+            $serie->fecha_estreno = substr($serie->primera_transmision, 0,4);
+            $serie->poster_path = str_replace("https://image.tmdb.org/t/p/w500", "https://image.tmdb.org/t/p/w154", $serie->poster_path);
+
+            $serie->uri = route('episodios.list',['serieuri' => $serie->uri]);
+
+
+            unset($serie->show_name);
+            unset($serie->descripcion);
+            unset($serie->primera_transmision);
+
+            $collection->push($serie);
+        }
+
+//        dd($collection->take(9));
+
+        return json_encode($collection->take(6));
+   }
 }

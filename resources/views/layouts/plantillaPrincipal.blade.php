@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport">
     <title id="TituloDePagina"> BoliTube - @yield('Title')</title>
     <link rel="icon" href="{{ asset('css/img/favicon-bo.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Boostrar - JQuery -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -25,6 +26,9 @@
 @yield('afterbootstrap')
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script> var s_i = {
+    url : "{!! url('/search') !!}"} </script>
+<script src="{{ asset('js/front-search.js') }}"></script>
 <script>
     var i = 0;
     function change() {

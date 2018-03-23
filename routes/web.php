@@ -136,7 +136,7 @@ Route::post('/videos/retken', 'PageController@refreshToken')->name('videos.refre
 Route::get('/tag/{tagname}', "PageController@tags")->name('tag');
 
 /** SEARCH */
-Route::get('/search', 'PageController@search')->name('search');
+Route::get('/searchs', 'PageController@search')->name('search');
 
 //Search serie
 Route::post('/search/serie', 'PageController@searchSerie')->name('search.serie');
@@ -147,11 +147,12 @@ Route::post('/search/movie', 'PageController@searchMovie')->name('search.movie')
 //Search episodio
 Route::post('/search/episodio', 'PageController@searchEpisodio')->name('search.episodio');
 
+//Search
+Route::post('/search', 'PageController@searchDelivery')->name('search.delivery');
+
+
 /** Others */
 Route::get('/test', function () {
-
-    return redirect('https://www.google.com');
-
     /*
     $arrContextOptions=array(
         "ssl"=>array(
