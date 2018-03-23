@@ -15,6 +15,11 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     vertical-align: baseline;
 }
 
+
+html{
+    height: 100%;
+}
+
 #dt_contenedor {
     width: 100%;
     float: left;

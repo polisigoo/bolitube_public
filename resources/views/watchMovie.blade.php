@@ -60,7 +60,7 @@ Home @endsection
             <div class="modo-cine">
              <button class="btn btn-dark" id="mod-cine">Modo cine <i class="icon-enter" id="c-ico"></i></button>
             </div>
-            <h1 class="inf_episodio">{{ htmlspecialchars_decode($movie->titulo) }} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
+            <h1 class="inf_episodio">{!! $movie->titulo  !!} ({{substr($movie->fecha_estreno, 0,4)}})</h1>
 
             @if(Illuminate\Support\Facades\Auth::check())
             <div class="edit"><a href="{{ route('movie.watch',[
@@ -97,15 +97,9 @@ Home @endsection
 
             <div class="tags">
                 <h6>tags:</h6>
-                    <h6 style="display: inline; color: #cccccc">{{ $movie->keywords }}</h6>
+                    <h6 style="display: inline; color: #cccccc">{!! $movie->keywords !!}</h6>
             </div>
         </div>
-
-        <form id="upload" method="post" action="{{ url('storage/create') }}" accept-charset="UTF-8" enctype="multipart/form-data">
-            <input id="input-file" name="file" type="file" value="" style="display:block;height:0;width:0;" />
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        </form>
-        {{--<div type="hidden" id="path" value="url('/')"></div>--}}
 
         <div class="related">
             <div class="s-slider">
@@ -146,18 +140,10 @@ Home @endsection
             <nav class="categ">
                 <h2>Categorias</h2>
                 <ul class="categ scrolling mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;">
-                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside"  tabindex="0" style="max-height: 282px; overflow: auto">
+                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside scroll-black"  tabindex="0" style="max-height: 282px; overflow: auto">
                         <div id="mCSB_2_container" class="mCSB_container" style="position: relative; left: 0px;" dir="ltr">
-                            <?php $g = array(); $var = "Abc";?>
-                            @foreach($generos as $genero)
-                                @if(preg_match("/[,]/", $genero->generos) === 1)
-                                    @if(!in_array($var, $g))
-                                        <li class="categ"><a href="{{'Ruta a generos'}}">{{ $var = strstr($genero->generos, ",", true) }}</a></li>
-                                    @endif
-                                @else
-                                    <li class="categ"><a href="{{'Ruta a generos'}}">{{ $var = $genero->generos }}</a></li>
-                                @endif
-                                <?php $g[] = $var; ?>
+                            @foreach($genders as $genero)
+                                <li class="categ"><a href="{{'Ruta a generos'}}">{!! $genero !!}</a></li>
                             @endforeach
                         </div>
                     </div>
@@ -176,7 +162,7 @@ Home @endsection
                                 <div class="image">
                                     <img src="{{ $mov->fondo_path }}" alt="{{ htmlspecialchars_decode($mov->titulo) }}" class="as_img_loaded">
                                     <div class="as_data">
-                                        <h3>{{ htmlspecialchars_decode($mov->titulo) }}</h3>
+                                        <h3>{!! $mov->titulo !!}</h3>
                                         <span class="as_date">{{ $mov->fecha_estreno }}</span>
                                     </div>
                                     {{--<span class="as_quality">HD-R</span>--}}
@@ -207,7 +193,7 @@ Home @endsection
     <script>
         $( document ).ready(function() {
             var c = false;
-            $('#TituloDePagina').text('{{ $movie->titulo }}');
+            $('#TituloDePagina').text('{!! $movie->titulo !!}');
             $('#mod-cine').click(function () {
                 if(!c){
                     $('#g-video').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');

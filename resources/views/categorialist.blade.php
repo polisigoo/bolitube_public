@@ -96,6 +96,8 @@ Home @endsection
 @section('afterjquery')
     <script>
         $(document).ready(function() {
+            var i = false;
+
             $('.btn-link').click(function () {
                 $(this).parent()
                     .find('.episodes').children()
@@ -103,6 +105,14 @@ Home @endsection
                     .find('img').each(function () {
                     $(this).attr("src", $(this).data("src"));
                 });
+
+                if(i){
+                    $('html').css('height', '100%');
+                    i = false;
+                }else{
+                    $('html').css('height', 'auto');
+                    i = true;
+                }
             });
 
             if(window.innerWidth <= 800 && window.innerHeight <= 600) {

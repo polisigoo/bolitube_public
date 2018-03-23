@@ -80,14 +80,14 @@ Home @endsection
             <div class="modo-cine">
              <button class="btn btn-dark" id="mod-cine">Modo cine <i class="icon-enter" id="c-ico"></i></button>
             </div>
-            <h1 class="inf_episodio">{{ $episode->titulo }}</h1>
+            <h1 class="inf_episodio">{!! $episode->titulo !!}</h1>
 
             <div class="edit"><a href="{{ route('episode.edit',[
                                             'seriuri' => $serie->uri,
                                             'temporada' => $episode->temporada,
                                             'episodio' => $episode->episodio]) }}"><span class="icon-pencil"></span>Editar</a></div>
 
-            <h3 class="inf_descripcion">{{ $episode->resumen }}</h3>
+            <h3 class="inf_descripcion">{!! $episode->resumen !!}</h3>
 
             <div class="share">
                 <ul>
@@ -115,16 +115,10 @@ Home @endsection
             <div class="tags">
                 <h6>tags:</h6>
                 @foreach($keywords as $tag)
-                    <h6 style="display: inline; color: #cccccc">{{ $tag }}, </h6>
+                    <h6 style="display: inline; color: #cccccc">{!! $tag !!}, </h6>
                 @endforeach
             </div>
         </div>
-
-        <form id="upload" method="post" action="{{ url('storage/create') }}" accept-charset="UTF-8" enctype="multipart/form-data">
-            <input id="input-file" name="file" type="file" value="" style="display:block;height:0;width:0;" />
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        </form>
-        {{--<div type="hidden" id="path" value="url('/')"></div>--}}
 
         <div class="sbox sinfo">
             <h2>{{ str_replace("_", " ", $serie->show_name) }}</h2>
@@ -170,20 +164,11 @@ Home @endsection
                 <h2>Categorias</h2>
                 <i class="cat_carpetas">Carpetas</i>
                 <ul class="categ scrolling mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;">
-                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: 282px; overflow: auto">
+                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside scroll-black" tabindex="0" style="max-height: 282px; overflow: auto">
                         <div id="mCSB_2_container" class="mCSB_container" style="position: relative; left: 0px;" dir="ltr">
-                            <?php $cat = "dvsdv";
-
-                            ?>
-                            {{--@foreach($lista as $list)--}}
-                                {{--@if($cat != $list->categoria)--}}
-
-                                {{--<li class="cat-item">--}}
-                                    {{--<a href="{{route('video.list.categoria', ['categoria' => $list->categoria]) }}">{{ $cat = $list->categoria }}</a>--}}
-                                    {{--<i>{{ $cant = DB::table('videos')->select('carpeta_season')->where('categoria', '=', $list->categoria)->count() }}</i>--}}
-                                {{--</li>--}}
-                                {{--@endif--}}
-                            {{--@endforeach--}}
+                            @foreach($genders as $genero)
+                                <li class="categ"><a href="{{'Ruta a generos'}}">{{ $genero }}</a></li>
+                            @endforeach
                         </div>
                     </div>
                 </ul>
@@ -233,7 +218,7 @@ Home @endsection
     <script>
         $( document ).ready(function() {
             var c = false;
-            $('#TituloDePagina').text('{{ $episode->titulo }}' + ' - ' +'{{ $serie->show_name }}');
+            $('#TituloDePagina').text('{!! $episode->titulo !!}' + ' - ' +'{!! $serie->show_name !!}');
             $('#mod-cine').click(function () {
                 if(!c){
                     $('.playerVideo').attr('style', 'width: calc(100% + 340px) !important;background-color: #191919;height: 560px;');

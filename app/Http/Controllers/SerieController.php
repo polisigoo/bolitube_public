@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Episodio;
+use App\Models\Serie;
 use Illuminate\Http\Request;
 
 class SerieController extends Controller
@@ -81,6 +82,16 @@ class SerieController extends Controller
             $siguiente = null;
         }
 
+        /** generos */
+        $generos = Serie::select('generos')->get();
+        $genders = collect();
+        foreach($generos as $genero){
+            foreach(explode(',', $genero->generos) as $ga){
+                $genders->push($ga);
+            }
+        }
+        $genders = $genders->unique();
+
         $serie = $serieuri;
 
 
@@ -90,7 +101,8 @@ class SerieController extends Controller
                             'anterior',
                             'siguiente',
                             'serie',
-                            'episodios'));
+                            'episodios',
+                            'genders'));
     }
 
     public function episodeslist($serieuri){
